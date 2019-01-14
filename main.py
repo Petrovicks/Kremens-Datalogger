@@ -10,7 +10,7 @@ from glob import glob
 
 #Required for camera capture
 import picamera
-from pyleptop_capture import *
+from pylepton_capture import *
 import cv2
 import numpy
 
@@ -26,7 +26,7 @@ import DS1307 #RTC python library
 import ntplib, datetime #ntp server interfacing
 
 #Set up workspace for imports
-sys.path.insert(0, '/home/pi/Desktop/')
+#sys.path.insert(0, '/home/pi/Desktop/')
 
 #Hardware setup
 redLED = 19 #Speaker LED
@@ -45,13 +45,13 @@ GPIO.setup(speaker, GPIO.OUT)
 #Initialize camera
 camera = picamera.PiCamera()
 camera.led = False
-PiCamera.PiCamera.CAPTURE_TIMEOUT = 60
+picamera.PiCamera.CAPTURE_TIMEOUT = 60
 
 try:
-	#check USB mounting
-	mounted = mount_usb()
-	print 'USB mount :' + str(mounted)
-	if !mounted:
+    #check USB mounting
+    mounted = mount_usb()
+    print 'USB mount :' + str(mounted)
+    if ~mounted:
 		raise TypeError('Failed to mount USB.')
     #Buzz start up sound
     GPIO.output(speaker,False)
@@ -74,12 +74,11 @@ try:
     		break
     if clockCheck:
     	clock = DS1307.DS1307(1, 0x68) #Initializes handler for RTC with HW ADDR as 0x68
-		if internet_on():
-			print("Connection verified via google.com, setting RTC to NTP time.")
-			ntpc = ntplib.NTPClient()
-
-			#Obtain time from ntp server and write it to the RTC
-            clock.write_datetime(datetime.datetime.utcfromtimestamp(ntpc.request('europe.pool.ntp.org').tx_time))
+	if internet_on():
+		print("Connection verified via google.com, setting RTC to NTP time.")
+		ntpc = ntplib.NTPClient()
+		#Obtain time from ntp server and write it to the RTC
+                clock.write_datetime(datetime.datetime.utcfromtimestamp(ntpc.request('europe.pool.ntp.org').tx_time))
         #Verify the time is valid
         try:
         	rtc_time = clock.read_datetime()
