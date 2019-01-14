@@ -179,7 +179,7 @@ try:
     print ' '
 
 except Exception as e:
-    error = open('/medua/usb/error.txt','w')
+    error = open('/media/usb/error.txt','w')
     error.write(str(e))
     error.close()
     print sys.exc_info()
