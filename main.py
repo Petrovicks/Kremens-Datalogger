@@ -1,116 +1,126 @@
 #!/usr/bin/env python
 
+#Pi hardware setup
 import RPi.GPIO as GPIO
-import time
-import cv2
-from glob import glob
+
+#Required for directory manipulation
 import os
 import sys
+from glob import glob
+
+#Required for camera capture
 import picamera
-from pylepton_capture import *
+from pyleptop_capture import *
+import cv2
+import numpy
+
+#Libraries for hardware tests
 from test_wifi import *
-import DS1307
-from i2cDetect import *
 from check_usb import *
-from generate_header import *
-from mount_usb import *
+from mount_Usb import *
+from i2cDetect import *
 
-import ntplib, datetime
-from time import ctime, sleep
+#Timekeeping
+import time
+import DS1307 #RTC python library
+import ntplib, datetime #ntp server interfacing
 
-#Set up workspace (?)
-sys.path.insert(0,'/home/pi/Desktop/')
+#Set up workspace for imports
+sys.path.insert(0, '/home/pi/Desktop/')
 
-#GPIO set up
-redLED = 19
-yelLED = 13
+#Hardware setup
+redLED = 19 #Speaker LED
+yelLED = 13 #General errors
 speaker = 26
-j1 = 5
-j2 = 6
+j1 = 5 #jumpers for mode setting
+j2 = 6 #jumpers for mode setting
 mode = 1
-timeCheck = True
+validTime = True
 
-#Set up camera
-camera = picamera.PiCamera()
-camera.led = False
-picamera.PiCamera.CAPTURE_TIMEOUT = 60
-#Set up LEDs and Speaker
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(redLED, GPIO.OUT)
 GPIO.setup(yelLED, GPIO.OUT)
 GPIO.setup(speaker, GPIO.OUT)
+
+#Initialize camera
+camera = picamera.PiCamera()
+camera.led = False
+PiCamera.PiCamera.CAPTURE_TIMEOUT = 60
+
 try:
-        #Mount USB
-    mounted = mount_usb()
-    print 'USB Mount state is: ' + str(mounted)
-    if mounted == False:
-        raise TypeError('Failed to mount usb')
+	#check USB mounting
+	mounted = mount_usb()
+	print 'USB mount :' + str(mounted)
+	if !mounted:
+		raise TypeError('Failed to mount USB.')
     #Buzz start up sound
     GPIO.output(speaker,False)
     GPIO.output(redLED,False)
     GPIO.output(yelLED,False)
     GPIO.output(yelLED,True)
+
+    #Beep for 0.3 seconds, silence for 0.3 seconds
+    #Repeat 3 times
     for i in range(3):
-        startSound = time.time()
-        while time.time() - startSound < 0.3:
-            GPIO.output(speaker,True)
-        GPIO.output(speaker,False)
-        stopSound = time.time()
-        while time.time() - stopSound < 0.3:
-            pass
-    #Check internet connection
-    internet = internet_on()
-    for n in range (128):
-	    if i2cDetect(n):
-		    clockCheck = True
-		    break
+    	GPIO.output(speaker, True)
+    	sleep(0.3)
+    	GPIO.output(speaker, False)
+    	sleep(0.3)
+
+    #Find the RTC (0 - 127)
+    for n in range(128):
+    	if i2cDetect(n):
+    		clockCheck = True
+    		break
     if clockCheck:
-        clock = DS1307.DS1307(1, 0x68)
-        if internet:
-            print("Can open google.com; setting RTC to NTP time.")
-            #clock.write_now()
-            ntpc = ntplib.NTPClient()
+    	clock = DS1307.DS1307(1, 0x68) #Initializes handler for RTC with HW ADDR as 0x68
+		if internet_on():
+			print("Connection verified via google.com, setting RTC to NTP time.")
+			ntpc = ntplib.NTPClient()
+
+			#Obtain time from ntp server and write it to the RTC
             clock.write_datetime(datetime.datetime.utcfromtimestamp(ntpc.request('europe.pool.ntp.org').tx_time))
-        #Check clock is up to date
+        #Verify the time is valid
         try:
-            t1 = clock.read_datetime()
-            print("Time read from RTC:",t1.strftime("%Y-%m-%d %H:%M:%S"))
-            t1 = t1.timetuple()
-            if t1[0] < 2017:
-                timeCheck = False
+        	rtc_time = clock.read_datetime()
+        	print("Time read from RTC:",rtc_time.strftime("%Y-%m-%d %H:%M:%S"))
+        	rtc_time = rtc_time.timetuple()
+        	if rtc_time[0] < 2000:
+        		validTime = False
         except:
-            timeCheck = False
+        	validTime = False
     else:
-        timeCheck = False
-    #Begin running
+    	validTime = False
+
+    #Begin main routine
     goTime = 700
     startTime = 0
     count = 0
     count2 = 0
     testTime = 0
-    while check_usb(): #Maybe change to memory check
-            if timeCheck:
+    while check_usb(): #Continue running as long as USB is inserted.
+            if validTime:
             #Time Stuff - Create new folder after time limit
-                if goTime-startTime >= 60*10: #If time is greater than 600 seconds or 60 seconds?
+                if goTime-startTime >= 60*10: #If time is greater than 600 seconds
                     #Create Image Directory
-                    t1 = clock.read_datetime()
-                    t1 = t1.timetuple()
-                    date = "%04d-%02d-%02d--"%(t1[0],t1[1],t1[2])
-                    timez = "%02d-%02d-%02d"%(t1[3],t1[4],t1[5])
-                    dirName = date+timez
+                    rtc_time = clock.read_datetime()
+                    rtc_time = rtc_time.timetuple()
+                    date = "%04d-%02d-%02d--"%(rtc_time[0],rtc_time[1],rtc_time[2])
+                    timez = "%02d-%02d-%02d"%(rtc_time[3],rtc_time[4],rtc_time[5])
+                    dirName = date+timez #YR-MO-DAY--HR-MIN-SEC
                     fullDN = '/media/usb/'+dirName
                     os.mkdir(fullDN)
-                    startTime = (t1[3]*60*60) +(t1[4]*60) +(t1[5])
+                    startTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
                 #Capture and save from the thermal camera
-                t1 = clock.read_datetime()
-                t1 = t1.timetuple()
-                goTime = (t1[3]*60*60) +(t1[4]*60) +(t1[5])
-                while goTime - testTime < 1:
-                    t1 = clock.read_datetime()
-                    t1 = t1.timetuple()
-                    goTime = (t1[3]*60*60) +(t1[4]*60) +(t1[5])
+                rtc_time = clock.read_datetime()
+                rtc_time = rtc_time.timetuple()
+                goTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
+                # while goTime - testTime < 1:
+                #     rtc_time = clock.read_datetime()
+                #     rtc_time = rtc_time.timetuple()
+                #     goTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
                 testTime = goTime
-                timez = "%02d-%02d-%02d"%(t1[3],t1[4],t1[5])
+                timez = "%02d-%02d-%02d"%(rtc_time[3],rtc_time[4],rtc_time[5])
             else:
                 if count2 == 0:
                     for name in os.listdir('/media/usb/'):
@@ -130,18 +140,18 @@ try:
                     goTime = time.time()
                 testTime = goTime
 
-            startSound = time.time()
-            while time.time() - startSound < 0.1:
-                GPIO.output(speaker,True)
+            # startSound = time.time()
+            # while time.time() - startSound < 0.1:
+            #     GPIO.output(speaker,True)
+            GPIO.output(speaker, True)
+            sleep(0.1)
             GPIO.output(speaker,False)
+
             if mode == 1:
-                sampleStartTime = time.time()
                 image,fpa,aux = capture(flip_v=False, device = "/dev/spidev0.1")
                 cv2.imwrite(fullDN+'/image_thermal_%s_%09d.png'%(timez,count),image)
-                #print 'Thermal captured'
                 #Capture and save from the rgb camera
                 camera.capture(fullDN+'/image_rgb_%s_%09d.jpg'%(timez,count))#,quality=10)
-                #print 'RGB captured'
                 generate_header(fullDN,'image_thermal_%s_%09d'%(timez,count),timez,fpa,aux)
                 count += 1
             elif mode == 2:
@@ -155,6 +165,7 @@ try:
                 print 'Thermal captured'
                 generate_header(fullDN,'image_thermal_%s_%09d'%(timez,count),timez,fpa,aux)
 
+    #If USB is no longer mounted it is out of storage.
     raise TypeError('Out Of USB Storage')
     focalPlane = numpy.ones((1))*1.0
     fpa = focalPlane*fpa
@@ -168,7 +179,7 @@ try:
     print ' '
 
 except Exception as e:
-    error = open('/home/pi/Desktop/error.txt','w')
+    error = open('/medua/usb/error.txt','w')
     error.write(str(e))
     error.close()
     print sys.exc_info()
@@ -184,5 +195,3 @@ except Exception as e:
         stopSound = time.time()
         while time.time() - stopSound < 0.3:
             pass
-
-
