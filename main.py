@@ -17,7 +17,7 @@ import numpy
 #Libraries for hardware tests
 from test_wifi import *
 from check_usb import *
-from mount_Usb import *
+from mount_usb import *
 from i2cDetect import *
 
 #Timekeeping
@@ -37,21 +37,22 @@ j2 = 6 #jumpers for mode setting
 mode = 1
 validTime = True
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(redLED, GPIO.OUT)
-GPIO.setup(yelLED, GPIO.OUT)
-GPIO.setup(speaker, GPIO.OUT)
-
 #Initialize camera
 camera = picamera.PiCamera()
 camera.led = False
 picamera.PiCamera.CAPTURE_TIMEOUT = 60
 
+#Initialize all GPIO after camera
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(redLED, GPIO.OUT)
+GPIO.setup(yelLED, GPIO.OUT)
+GPIO.setup(speaker, GPIO.OUT)
+
 try:
     #check USB mounting
     mounted = mount_usb()
     print 'USB mount :' + str(mounted)
-    if ~mounted:
+    if mounted == False:
 		raise TypeError('Failed to mount USB.')
     #Buzz start up sound
     GPIO.output(speaker,False)
@@ -63,9 +64,9 @@ try:
     #Repeat 3 times
     for i in range(3):
     	GPIO.output(speaker, True)
-    	sleep(0.3)
+    	time.sleep(0.3)
     	GPIO.output(speaker, False)
-    	sleep(0.3)
+    	time.sleep(0.3)
 
     #Find the RTC (0 - 127)
     for n in range(128):
@@ -78,7 +79,7 @@ try:
 		print("Connection verified via google.com, setting RTC to NTP time.")
 		ntpc = ntplib.NTPClient()
 		#Obtain time from ntp server and write it to the RTC
-                clock.write_datetime(datetime.datetime.utcfromtimestamp(ntpc.request('europe.pool.ntp.org').tx_time))
+        clock.write_datetime(datetime.datetime.utcfromtimestamp(ntpc.request('europe.pool.ntp.org').tx_time))
         #Verify the time is valid
         try:
         	rtc_time = clock.read_datetime()
@@ -148,7 +149,7 @@ try:
             # while time.time() - startSound < 0.1:
             #     GPIO.output(speaker,True)
             GPIO.output(speaker, True)
-            sleep(0.1)
+            time.sleep(0.1)
             GPIO.output(speaker,False)
 
             if mode == 1:
