@@ -83,13 +83,13 @@ try:
     		print("Connection verified via google.com, setting RTC to NTP time.")
     		ntpc = ntplib.NTPClient()
     		#Obtain time from ntp server and write it to the RTC
-            clock.write_datetime(datetime.datetime.utcfromtimestamp(ntpc.request('europe.pool.ntp.org').tx_time))
+                clock.write_datetime(datetime.datetime.utcfromtimestamp(ntpc.request('europe.pool.ntp.org').tx_time))
         #Verify the time is valid
         try:
         	rtc_time = clock.read_datetime()
         	print("Time read from RTC:",rtc_time.strftime("%Y-%m-%d %H:%M:%S"))
-            bashCommand = "date -s '" + rtc_time.strftime("%Y-%m-%d %H:%M:%S") + "'"
-            subprocess.call(bashCommand, shell=True)
+                bashCommand = "date -s '" + rtc_time.strftime("%Y-%m-%d %H:%M:%S") + "'"
+                subprocess.call(bashCommand, shell=True)
         	rtc_time = rtc_time.timetuple()
         	if rtc_time[0] < 2000:
         		validTime = False
@@ -123,18 +123,13 @@ try:
                     startTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
 
                 #Enforce one second increments between pictures using Pi HW clock
-                dTime = 0 
+                dTime = 0
                 while dTime < 1:
-                    currentTime = datetime.datetime.now()    
-                    timeDiff = currentTime - eventTime
-                    dTime = timeDiff.seconds + float(timeDiff.microseconds/float(1000000))
-                currentTime = currentTime.timetuple()
-                #Read Pi HW clock to decrease i2c usage
-                # rtc_time = time.strftime("%Y-%m-%d %H:%M:%S")
-                # rtc_time = datetime.datetime.strptime(rtc_time, "%Y-%m-%d %H:%M:%S")
-                # rtc_time = rtc_time.timetuple()
-                # eventTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
-                eventTime = currentTime
+                    currentTime = datetime.datetime.now()
+                    currentTime = currentTime.timetuple()
+                    t1 = (currentTime[3]*60*60) + (currentTime[4]*60) + (currentTime[5])
+                    dTime = t1 - eventTime
+                eventTime = t1
                 timez = "%02d-%02d-%02d"%(eventTime[3],eventTime[4],eventTime[5])
             else:
                 #Error with reading RTC or HW clock
