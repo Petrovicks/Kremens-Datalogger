@@ -7,6 +7,7 @@ import RPi.GPIO as GPIO
 import os
 import sys
 from glob import glob
+from generate_header import *
 
 #Required for camera capture
 import picamera
@@ -75,11 +76,11 @@ try:
     		break
     if clockCheck:
     	clock = DS1307.DS1307(1, 0x68) #Initializes handler for RTC with HW ADDR as 0x68
-	if internet_on():
-		print("Connection verified via google.com, setting RTC to NTP time.")
-		ntpc = ntplib.NTPClient()
-		#Obtain time from ntp server and write it to the RTC
-        clock.write_datetime(datetime.datetime.utcfromtimestamp(ntpc.request('europe.pool.ntp.org').tx_time))
+    	if internet_on():
+    		print("Connection verified via google.com, setting RTC to NTP time.")
+    		ntpc = ntplib.NTPClient()
+    		#Obtain time from ntp server and write it to the RTC
+            clock.write_datetime(datetime.datetime.utcfromtimestamp(ntpc.request('europe.pool.ntp.org').tx_time))
         #Verify the time is valid
         try:
         	rtc_time = clock.read_datetime()
