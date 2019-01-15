@@ -16,9 +16,4 @@ def mount_usb():
             mounted = True
     return mounted
 if __name__ == '__main__':
-    import time
-    mounted = mount_usb()
-    print mounted
-    print "CHECK This"
-    #time.sleep(2)
-    print "HERE again"
+    print mount_usb()

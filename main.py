@@ -92,7 +92,7 @@ try:
     	validTime = False
 
     #Begin main routine
-    goTime = 700
+    eventTime = 700
     startTime = 0
     count = 0
     count2 = 0
@@ -100,25 +100,29 @@ try:
     while check_usb(): #Continue running as long as USB is inserted.
             if validTime:
             #Time Stuff - Create new folder after time limit
-                if goTime-startTime >= 60*10: #If time is greater than 600 seconds
+                if eventTime-startTime >= 60*10: #If time is greater than 600 seconds
                     #Create Image Directory
                     rtc_time = clock.read_datetime()
                     rtc_time = rtc_time.timetuple()
-                    date = "%04d-%02d-%02d--"%(rtc_time[0],rtc_time[1],rtc_time[2])
-                    timez = "%02d-%02d-%02d"%(rtc_time[3],rtc_time[4],rtc_time[5])
-                    dirName = date+timez #YR-MO-DAY--HR-MIN-SEC
+                    dirName = "%04d-%02d-%02d--%02d-%02d-%02d"%(rtc_time[0],rtc_time[1],rtc_time[2],rtc_time[3],rtc_time[4],rtc_time[5])
+                    # timez = "%02d-%02d-%02d"%(rtc_time[3],rtc_time[4],rtc_time[5])
+                    # dirName = date+timez #YR-MO-DAY--HR-MIN-SEC
                     fullDN = '/media/usb/'+dirName
                     os.mkdir(fullDN)
                     startTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
                 #Capture and save from the thermal camera
-                rtc_time = clock.read_datetime()
-                rtc_time = rtc_time.timetuple()
-                goTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
-                # while goTime - testTime < 1:
+                # rtc_time = clock.read_datetime()
+                # rtc_time = rtc_time.timetuple()
+                # eventTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5]) 
+                # while eventTime - testTime < 1:
                 #     rtc_time = clock.read_datetime()
                 #     rtc_time = rtc_time.timetuple()
-                #     goTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
-                testTime = goTime
+                #     eventTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
+                time.sleep(1)
+                rtc_time = clock.read_datetim()
+                rtc_time = rtc_time.timetuple()
+                eventTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
+                # testTime = eventTime
                 timez = "%02d-%02d-%02d"%(rtc_time[3],rtc_time[4],rtc_time[5])
             else:
                 if count2 == 0:
@@ -127,17 +131,18 @@ try:
                             count3 = int(name[8:])
                             if count3 > count2:
                                 count2 = count3
-                if goTime-startTime >= 60*10:
+                if eventTime-startTime >= 60*10:
                     count2 += 1
                     dirName = 'noclock_'+str(count2)
                     fullDN = '/media/usb/'+dirName
                     os.mkdir(fullDN)
                     startTime = time.time()
                 timez = "0"
-                goTime = time.time()
-                while goTime - testTime < 1:
-                    goTime = time.time()
-                testTime = goTime
+                # eventTime = time.time()
+                # while eventTime - testTime < 1:
+                #     eventTime = time.time()
+                time.sleep(1)
+                # testTime = eventTime
 
             # startSound = time.time()
             # while time.time() - startSound < 0.1:
@@ -174,7 +179,7 @@ try:
     a = (fullDN+'/aux_%s_%09d.txt'%(timez,count))
     numpy.savetxt(p,fpa)
     numpy.savetxt(a,aux)
-    print'Elapsed time='+ str(goTime - startTime) + '[s]'
+    print'Elapsed time='+ str(eventTime - startTime) + '[s]'
     print ' '
 
 except Exception as e:
@@ -184,6 +189,8 @@ except Exception as e:
     print sys.exc_info()
     GPIO.output(yelLED, False)
     errorTime = time.time()
+
+    #Endless beep cycle on error.
     while True:
         startSound = time.time()
         while time.time() - startSound < 1:
