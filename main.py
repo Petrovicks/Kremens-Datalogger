@@ -130,7 +130,7 @@ try:
                     t1 = (currentTime[3]*60*60) + (currentTime[4]*60) + (currentTime[5])
                     dTime = t1 - eventTime
                 eventTime = t1
-                timez = "%02d-%02d-%02d"%(eventTime[3],eventTime[4],eventTime[5])
+                timez = "%02d-%02d-%02d"%(currentTime[3],currentTime[4],currentTime[5])
             else:
                 #Error with reading RTC or HW clock
                 if count2 == 0:
