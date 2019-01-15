@@ -106,7 +106,7 @@ try:
     testTime = 0
     while check_usb(): #Continue running as long as USB is inserted.
             if validTime:
-            #Time Stuff - Create new folder after time limit
+                #Time Stuff - Create new folder after time limit
                 if eventTime-startTime >= 60*10: #If time is greater than 600 seconds
                     #Get time from RTC
                     rtc_time = clock.read_datetime()
@@ -115,19 +115,32 @@ try:
                     bashCommand = "date -s '" + rtc_time.strftime("%Y-%m-%d %H:%M:%S") + "'"
                     subprocess.call(bashCommand, shell=True)
 
+                    #Create directory name using RTC time
                     rtc_time = rtc_time.timetuple()
                     dirName = "%04d-%02d-%02d--%02d-%02d-%02d"%(rtc_time[0],rtc_time[1],rtc_time[2],rtc_time[3],rtc_time[4],rtc_time[5])
                     fullDN = '/media/usb/'+dirName
                     os.mkdir(fullDN)
                     startTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
-                time.sleep(0.5)
-                # rtc_time = clock.read_datetime()
+
+                #Enforce one second increments between pictures using Pi HW clock
+                currentTime = time.strftime("%Y-%m-%d %H:%M:%S")
+                currentTime = datetime.datetime.strptime(currentTime, "%Y-%m-%d %H:%M:%S")
+                currentTime = currentTime.timetuple()
+                currentTime = (currentTime[3]*60*60) + (currentTime[4]*60) + currentTime[5]
+
+                while currentTime - eventTime < 1:
+                    currentTime = time.strftime("%Y-%m-%d %H:%M:%S")
+                    currentTime = datetime.datetime.strptime(currentTime, "%Y-%m-%d %H:%M:%S")
+                    currentTime = currentTime.timetuple()   
+                    currentTime = (currentTime[3]*60*60) + (currentTime[4]*60) + currentTime[5]                 
 
                 #Read Pi HW clock to decrease i2c usage
-                rtc_time = time.strftime("%Y-%m-%d %H:%M:%S")
-                rtc_time = rtc_time.timetuple()
-                eventTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
-                timez = "%02d-%02d-%02d"%(rtc_time[3],rtc_time[4],rtc_time[5])
+                # rtc_time = time.strftime("%Y-%m-%d %H:%M:%S")
+                # rtc_time = datetime.datetime.strptime(rtc_time, "%Y-%m-%d %H:%M:%S")
+                # rtc_time = rtc_time.timetuple()
+                # eventTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
+                eventTime = currentTime
+                timez = "%02d-%02d-%02d"%(eventTime[3],eventTime[4],eventTime[5])
             else:
                 #Error with reading RTC or HW clock
                 if count2 == 0:
