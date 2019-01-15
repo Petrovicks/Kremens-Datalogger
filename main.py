@@ -26,6 +26,9 @@ import time
 import DS1307 #RTC python library
 import ntplib, datetime #ntp server interfacing
 
+#Bash scripting
+import subprocess
+
 #Set up workspace for imports
 #sys.path.insert(0, '/home/pi/Desktop/')
 
@@ -85,6 +88,8 @@ try:
         try:
         	rtc_time = clock.read_datetime()
         	print("Time read from RTC:",rtc_time.strftime("%Y-%m-%d %H:%M:%S"))
+            bashCommand = "date -s '" + rtc_time.strftime("%Y-%m-%d %H:%M:%S") + "'"
+            subprocess.call(bashCommand, shell=True)
         	rtc_time = rtc_time.timetuple()
         	if rtc_time[0] < 2000:
         		validTime = False
@@ -103,19 +108,28 @@ try:
             if validTime:
             #Time Stuff - Create new folder after time limit
                 if eventTime-startTime >= 60*10: #If time is greater than 600 seconds
-                    #Create Image Directory
+                    #Get time from RTC
                     rtc_time = clock.read_datetime()
+
+                    #Sync Pi HW clock with RTC
+                    bashCommand = "date -s '" + rtc_time.strftime("%Y-%m-%d %H:%M:%S") + "'"
+                    subprocess.call(bashCommand, shell=True)
+
                     rtc_time = rtc_time.timetuple()
                     dirName = "%04d-%02d-%02d--%02d-%02d-%02d"%(rtc_time[0],rtc_time[1],rtc_time[2],rtc_time[3],rtc_time[4],rtc_time[5])
                     fullDN = '/media/usb/'+dirName
                     os.mkdir(fullDN)
                     startTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
-                time.sleep(1)
-                rtc_time = clock.read_datetime()
+                time.sleep(0.5)
+                # rtc_time = clock.read_datetime()
+
+                #Read Pi HW clock to decrease i2c usage
+                rtc_time = time.strftime("%Y-%m-%d %H:%M:%S")
                 rtc_time = rtc_time.timetuple()
                 eventTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
                 timez = "%02d-%02d-%02d"%(rtc_time[3],rtc_time[4],rtc_time[5])
             else:
+                #Error with reading RTC or HW clock
                 if count2 == 0:
                     for name in os.listdir('/media/usb/'):
                         if name[:8] == 'noclock_':

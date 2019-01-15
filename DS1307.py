@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #encoding: utf-8
- 
+
 # Copyright (C) 2013 @XiErCh
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,7 +22,7 @@
 # SOFTWARE.
 
 from datetime import datetime
-
+import subprocess
 import smbus
 
 
@@ -208,11 +208,8 @@ def main():
     print "REG HOURS: ", ds._read(ds._REG_HOURS)
     print "REG DAYS: ", ds._read(ds._REG_DAY)
     print ds.read_str()
-#    x = ds.read_datetime()
-#    y = x.timetuple()
-#    for j in y:
-#        print j
-#    return ds.read_datetime()
+    bashCommand = "date -s '20" + ds.read_str().replace('T', ' ') + "'"
+    subprocess.call(bashCommand, shell = True)
 
 if __name__ == '__main__':
     main()
