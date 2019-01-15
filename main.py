@@ -107,24 +107,13 @@ try:
                     rtc_time = clock.read_datetime()
                     rtc_time = rtc_time.timetuple()
                     dirName = "%04d-%02d-%02d--%02d-%02d-%02d"%(rtc_time[0],rtc_time[1],rtc_time[2],rtc_time[3],rtc_time[4],rtc_time[5])
-                    # timez = "%02d-%02d-%02d"%(rtc_time[3],rtc_time[4],rtc_time[5])
-                    # dirName = date+timez #YR-MO-DAY--HR-MIN-SEC
                     fullDN = '/media/usb/'+dirName
                     os.mkdir(fullDN)
                     startTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
-                #Capture and save from the thermal camera
-                # rtc_time = clock.read_datetime()
-                # rtc_time = rtc_time.timetuple()
-                # eventTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5]) 
-                # while eventTime - testTime < 1:
-                #     rtc_time = clock.read_datetime()
-                #     rtc_time = rtc_time.timetuple()
-                #     eventTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
                 time.sleep(1)
-                rtc_time = clock.read_datetim()
+                rtc_time = clock.read_datetime()
                 rtc_time = rtc_time.timetuple()
                 eventTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
-                # testTime = eventTime
                 timez = "%02d-%02d-%02d"%(rtc_time[3],rtc_time[4],rtc_time[5])
             else:
                 if count2 == 0:
@@ -140,15 +129,7 @@ try:
                     os.mkdir(fullDN)
                     startTime = time.time()
                 timez = "0"
-                # eventTime = time.time()
-                # while eventTime - testTime < 1:
-                #     eventTime = time.time()
                 time.sleep(1)
-                # testTime = eventTime
-
-            # startSound = time.time()
-            # while time.time() - startSound < 0.1:
-            #     GPIO.output(speaker,True)
             GPIO.output(speaker, True)
             time.sleep(0.1)
             GPIO.output(speaker,False)
@@ -172,7 +153,8 @@ try:
                 generate_header(fullDN,'image_thermal_%s_%09d'%(timez,count),timez,fpa,aux)
 
     #If USB is no longer mounted it is out of storage.
-    raise TypeError('Out Of USB Storage')
+    #TODO: Make more robust, the usb check assumes it is mounted as sda or sda1
+    raise TypeError('Out of USB Storage')
     focalPlane = numpy.ones((1))*1.0
     fpa = focalPlane*fpa
     auxTemp = numpy.ones((1))*1.0
@@ -194,12 +176,9 @@ except Exception as e:
 
     #Endless beep cycle on error.
     while True:
-        startSound = time.time()
-        while time.time() - startSound < 1:
-            GPIO.output(redLED,True)
-            GPIO.output(speaker,True)
+        GPIO.output(redLED,True)
+        time.sleep(1)
+        GPIO.output(speaker,True)
         GPIO.output(redLED,False)
         GPIO.output(speaker,False)
-        stopSound = time.time()
-        while time.time() - stopSound < 0.3:
-            pass
+        time.sleep(0.3)
