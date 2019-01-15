@@ -123,17 +123,12 @@ try:
                     startTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
 
                 #Enforce one second increments between pictures using Pi HW clock
-                currentTime = time.strftime("%Y-%m-%d %H:%M:%S")
-                currentTime = datetime.datetime.strptime(currentTime, "%Y-%m-%d %H:%M:%S")
+                dTime = 0 
+                while dTime < 1:
+                    currentTime = datetime.datetime.now()    
+                    timeDiff = currentTime - eventTime
+                    dTime = timeDiff.seconds + float(timeDiff.microseconds/float(1000000))
                 currentTime = currentTime.timetuple()
-                currentTime = (currentTime[3]*60*60) + (currentTime[4]*60) + currentTime[5]
-
-                while currentTime - eventTime < 1:
-                    currentTime = time.strftime("%Y-%m-%d %H:%M:%S")
-                    currentTime = datetime.datetime.strptime(currentTime, "%Y-%m-%d %H:%M:%S")
-                    currentTime = currentTime.timetuple()   
-                    currentTime = (currentTime[3]*60*60) + (currentTime[4]*60) + currentTime[5]                 
-
                 #Read Pi HW clock to decrease i2c usage
                 # rtc_time = time.strftime("%Y-%m-%d %H:%M:%S")
                 # rtc_time = datetime.datetime.strptime(rtc_time, "%Y-%m-%d %H:%M:%S")
