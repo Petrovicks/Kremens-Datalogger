@@ -30,9 +30,9 @@ import ntplib, datetime #ntp server interfacing
 import subprocess
 
 #Set up workspace for imports
-#sys.path.insert(0, '/home/pi/Desktop/')
+sys.path.insert(0, '/home/pi/Desktop/')
 
-def set_clock_from_internet():
+def set_clock_from_internet(clock):
     if internet_on():
         print("Connection verified via google.com, setting RTC to NTP time.")
         ntpc = ntplib.NTPClient()
@@ -45,7 +45,7 @@ def set_clock_from_internet():
                 error.write(str(e))
                 error.close()
             else:
-                error = open('~/Desktop/error.txt', 'w')
+                error = open('/home/pi/Desktop/error.txt', 'w')
                 error.write(str(e))
                 error.close()
             GPIO.output(speaker, True)
@@ -64,7 +64,7 @@ def set_clock_from_internet():
         print "Error connecting to wifi.."
 
 
-def check_clock_validity():
+def check_clock_validity(clock):
     try:
         rtc_time = clock.read_datetime()
         print("Time read from RTC:",rtc_time.strftime("%Y-%m-%d %H:%M:%S"))
@@ -87,7 +87,7 @@ def check_clock_validity():
                     error.write('Oscillator bit reset, RTC reset to default time.')
                     error.close()
                 else:
-                    error = open('~/Desktop/error.txt', 'w')
+                    error = open('/home/pi/Desktop/error.txt', 'w')
                     error.write('Oscillator bit reset, RTC reset to default time.')
                     error.close()
             else:
@@ -98,7 +98,7 @@ def check_clock_validity():
                     error.write('Unable to reset RTC, using Pi HW clock.')
                     error.close()
                 else:
-                    error = open('~/Desktop/error.txt', 'w')
+                    error = open('/home/pi/Desktop/error.txt', 'w')
                     error.write('Unable to reset RTC, using Pi HW clock.')
                     error.close()
 
@@ -110,15 +110,6 @@ def check_clock_validity():
             time.sleep(0.05)
 
 def main():
-    #Hardware setup
-    redLED = 19 #Speaker LED
-    yelLED = 13 #General
-    speaker = 26
-    j1 = 5 #jumpers for mode setting
-    j2 = 6 #jumpers for mode setting
-    mode = 1
-    validTime = True
-
     #Initialize camera
     camera = picamera.PiCamera()
     camera.led = False
@@ -135,11 +126,6 @@ def main():
     print 'USB mount :' + str(mounted)
     if mounted == False:
 		raise TypeError('Failed to mount USB.')
-        while True:
-            GPIO.output(speaker, True)
-            time.sleep(1)
-            GPIO.output(speaker, False)
-            time.sleep(0.5)
     #Buzz start up sound
     GPIO.output(speaker,False)
     GPIO.output(redLED,False)
@@ -161,8 +147,8 @@ def main():
     		break
     if clockCheck:
         clock = DS1307.DS1307(1, 0x68) #Initializes handler for RTC with HW ADDR as 0x68
-        set_clock_from_internet()
-        check_clock_validity()
+        set_clock_from_internet(clock)
+        validTime = check_clock_validity(clock)
     else:
     	validTime = False
         if mounted:
@@ -170,7 +156,7 @@ def main():
             error.write('Unable to find RTC.')
             error.close()
         else:
-            error = open('~/Desktop/error.txt', 'w')
+            error = open('/home/pi/Desktop/error.txt', 'w')
             error.write('Unable to find RTC.')
             error.close()
 
@@ -183,10 +169,12 @@ def main():
             if validTime:
                 #Time Stuff - Create new folder after time limit
                 if eventTime-startTime >= 60*10: #If time is greater than 600 seconds
-                    rtc_time = clock.read_datetime() #Get time from RTC
-                    bashCommand = "date -s '" + rtc_time.strftime("%Y-%m-%d %H:%M:%S") + "'"
-                    subprocess.call(bashCommand, shell=True) #Sync Pi HW clock with RTC
-
+                    if _USE_HW_CLOCK == False:
+                        rtc_time = clock.read_datetime() #Get time from RTC
+                        bashCommand = "date -s '" + rtc_time.strftime("%Y-%m-%d %H:%M:%S") + "'"
+                        subprocess.call(bashCommand, shell=True) #Sync Pi HW clock with RTC
+                    else:
+                        rtc_time = datetime.datetime.now()
                     rtc_time = rtc_time.timetuple()
                     dirName = "%04d-%02d-%02d--%02d-%02d-%02d"%(rtc_time[0],rtc_time[1],rtc_time[2],rtc_time[3],rtc_time[4],rtc_time[5])
                     fullDN = '/media/usb/'+dirName
@@ -263,5 +251,21 @@ if __name__ == '__main__':
     _USE_HW_CLOCK = False
     rtc_time = 0
     mounted = False
-    clock = 0
-    main()
+
+    #Hardware setup
+    redLED = 19 #Speaker LED
+    yelLED = 13 #General
+    speaker = 26
+    j1 = 5 #jumpers for mode setting
+    j2 = 6 #jumpers for mode setting
+    mode = 1
+
+    try:
+        main()
+    except:
+        print "Unexpected exit."
+        while True:
+            GPIO.output(speaker, True)
+            time.sleep(1)
+            GPIO.output(speaker, False)
+            time.sleep(0.5)
