@@ -208,8 +208,8 @@ def main():
     print "REG HOURS: ", ds._read(ds._REG_HOURS)
     print "REG DAYS: ", ds._read(ds._REG_DAY)
     print ds.read_str()
-    bashCommand = "date -s '20" + ds.read_str().replace('T', ' ') + "'"
-    subprocess.call(bashCommand, shell = True)
+    # bashCommand = "date -s '20" + ds.read_str().replace('T', ' ') + "'"
+    # subprocess.call(bashCommand, shell = True)
 
 if __name__ == '__main__':
     main()
