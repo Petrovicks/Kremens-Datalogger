@@ -1,0 +1,2 @@
+ g++ -Wl,-O1 -o foo Lepton_I2C.o LeptonThread.o MyLabel.o Palettes.o SPI.o moc_LeptonThread.o moc_MyLabel.o    -L/usr/lib/arm-linux-gnueabihf -LleptonSDKEmb32PUB/Debug -lLEPTON_SDK -lQtGui -lQtCore -lpthread
+

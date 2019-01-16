@@ -1,0 +1,1000 @@
+  456  cd raspberrypi_video/
+  457  ls
+  458  vim raspberrypi_video.pro 
+  459  vi raspberrypi_video
+  460  vi raspberrypi_video.pro 
+  461  ls
+  462  vim main.cpp 
+  463  gcc main.cpp main_exc
+  464  vim lepton_interface_design_document.pdf 
+  465  cd
+  466  apt-get libpng-dev
+  467  cd Desktop/
+  468  ls
+  469  cd pylepton/
+  470  ls
+  471  cd pylepton/
+  472  ls
+  473  vi Lepton.py
+  474  cd
+  475  startx
+  476  cd Desktop/
+  477  ls
+  478  cd Lepton/
+  479  ls
+  480  cd pylepton/
+  481  ls
+  482  cd pylepton/
+  483  ls
+  484  vi Lepton.py
+  485  cd ..
+  486  ls
+  487  cd Lepton
+  488  cd ..
+  489  cd LeptonModule-master/
+  490  ls
+  491  cd ThermalView/
+  492  ls
+  493  cd src/
+  494  ls
+  495  cd ..
+  496  ls
+  497  cd flirpi/
+  498  ls
+  499  cd v4l2loopback/
+  500  ls
+  501  cd examples/
+  502  ls
+  503  cd ..
+  504  ls
+  505  cd tests/
+  506  ls
+  507  cd ..
+  508  ls
+  509  cd ..
+  510  ls
+  511  cd edison_capture/
+  512  ls
+  513  cd ..
+  514  ls
+  515  cd beagleboneblack_video/
+  516  ls
+  517  cd ..
+  518  ls
+  519  cd stm32nucleo_401re/
+  520  ls
+  521  cd ..
+  522  ls
+  523  cd STM32F3Discovery_ChibiOS/
+  524  ls
+  525  cd ..
+  526  ls
+  527  cd Lepton
+  528  ls
+  529  cd Lepton/
+  530  ls
+  531  cd Lepton-CaptureRaw/
+  532  ls
+  533  vi main.cpp 
+  534  gcc mainwindow.cpp mainwindow
+  535  cd ..
+  536  ls
+  537  cd ..
+  538  ls
+  539  cd LeptonSDKEmb32PUB/
+  540  ls
+  541  cd ..
+  542  cd LeptonSDKEmb64PUB/
+  543  ls
+  544  cd ..
+  545  ls
+  546  cd /
+  547  ls
+  548  cd usr/local/lib/python2.7/dist-packages/pylepton
+  549  ls
+  550  vi Lepton.py
+  551  sudo vi Lepton.py
+  552  sudo vim Lepton.py
+  553  ls
+  554  vi __init__.py
+  555  sudo shutdown -h now
+  556  cd /
+  557  cd etc/
+  558  sudo vim modules
+  559  cd Desktop/
+  560  ls 
+  561  sudo pylepton_capture output.png
+  562  ls
+  563  cd Desktop/
+  564  ls -la
+  565  ls
+  566  cd pylepton/
+  567  ls
+  568  cd build/scripts-2.7/
+  569  ls
+  570  chmod 777 test.py 
+  571  sudo chmod 777 test.py 
+  572  cd Desktop/pylepton/
+  573  python pylepton_capture test.png
+  574  ls
+  575  cd build/
+  576  python pylepton_capture test.png
+  577  ls
+  578  cd scripts-2.7/
+  579  ls
+  580  python pylepton_capture test.png
+  581  ls
+  582  vi pylepton_
+  583  vi pylepton_capture 
+  584  sudo vi pylepton_capture 
+  585  python pylepton_capture test.png
+  586  ls
+  587  python pylepton_capture test.png
+  588  ls
+  589  python pylepton_capture test.png
+  590  ls
+  591  ls -la
+  592  ls -a
+  593  ls -l
+  594  sudo python pylepton_capture test.png
+  595  ls
+  596  sudo python pylepton_capture test.png
+  597  ls
+  598  sudo python pylepton_capture test2.png
+  599  sudo python pylepton_capture test3.png
+  600  sudo python pylepton_capture output.png
+  601  sudo vi test.py
+  602  vi test.py
+  603  exit
+  604  cd Desktop/
+  605  ls
+  606  cd pylepton/
+  607  ls
+  608  cd build/
+  609  ls
+  610  cd scripts-2.7/
+  611  ls
+  612  vi pylepton_capture 
+  613  duso vi pylepton_capture 
+  614  sudo vi pylepton_capture 
+  615  python pylepton_capture test.png
+  616  ls 
+  617  cd ..
+  618  ls
+  619  cd lib.linux-armv7l-2.7/
+  620  ls
+  621  cd pylepton/
+  622  ls
+  623  sudo vi Lepton.py 
+  624  python pylepton_capture test.png
+  625  sudo python pylepton_capture test.png
+  626  cd ..
+  627  python pylepton_capture test.png
+  628  cd lib.linux-armv7l-2.7/pylepton/
+  629  ls
+  630  sudo vi Lepton.py 
+  631  vi Lepton.py 
+  632  python pylepton_capture test.png
+  633  ls
+  634  sudo vi Lepton.py 
+  635  cd ..
+  636  cs ..
+  637  cd ..
+  638  sudo vi test_cap.py
+  639  ls
+  640  cd scripts-2.7/
+  641  ls
+  642  sudo vi pylepton_capture 
+  643  vi pylepton_capture 
+  644  sudo test.py output.png
+  645  sudo python test.py output.png
+  646  vi pylepton_capture 
+  647  sudo python test.py output.png
+  648  ls
+  649  sudo rm image_%04.png 
+  650  ls
+  651  sudo python test.py output.png
+  652  sudo rm image_*
+  653  ls
+  654  sudo python test.py output.png
+  655  sudo rm image_*
+  656  sudo python test.py output.png
+  657  ls
+  658  sudo python test.py output.png
+  659  exit
+  660  cd 
+  661  cd /
+  662  ls
+  663  cd usr/
+  664  cd local/lib/python2.7/dist-packages/pylepton/
+  665  ls
+  666  sudo vi Lepton.py
+  667  ls
+  668  sudo vi Lepton.py
+  669  ls
+  670  vi __init__.py
+  671  vi Lepton.py
+  672  sudo vi Lepton.py
+  673  vi Lepton.py
+  674  sudo vi Lepton.py
+  675  vi Lepton.py
+  676  sudo shutdown -h now
+  677  startx
+  678  cd
+  679  cls
+  680  ls
+  681  cd /
+  682  cd usr/
+  683  ls
+  684  cd lib/
+  685  ls
+  686  cd python2.7/
+  687  ls
+  688  cd importlib/
+  689  ls
+  690  cd ..
+  691  cd dist-packages/
+  692  ls
+  693  cd ..
+  694  ls
+  695  cd ..
+  696  ls
+  697  cd ..
+  698  ls
+  699  cd local/lib/python2.7/dist-packages/pylepton/
+  700  ls
+  701  sudo vi Lepton.py
+  702  vi Lepton.py
+  703  exit
+  704  cd..
+  705  cd ..
+  706  ls
+  707  cd lib.linux-armv7l-2.7/
+  708  ls
+  709  cd pylepton/
+  710  vi Lepton.py 
+  711  sudo pylepton_capture test5.tif
+  712  cd ..
+  713  cd scripts-2.7/
+  714  ls
+  715  sudo pylepton_capture test5.tif
+  716  sudo python pylepton_capture test5.tif
+  717  ls
+  718  python
+  719  ls
+  720  exit
+  721  sudo python pylepton_capture out.tif
+  722  exit
+  723  sudo shutdown -h now
+  724  cd Desktop/pylepton/
+  725  ls
+  726  cd build/scripts-2.7/
+  727  ls
+  728  python pylepton_capture test4.tif
+  729  ls
+  730  sudo python pylepton_capture test4.tif
+  731  ls
+  732  startx
+  733  cd Desktop/pylepton/build/scripts-2.7/
+  734  vi pylepton_capture 
+  735  sudo vi pylepton_capture 
+  736  cd / 
+  737  cd usr/local/
+  738  ls
+  739  cd lib/
+  740  ls
+  741  cd python2.7/
+  742  ls
+  743  cd dist-packages/
+  744  ls
+  745  cd pylepton/
+  746  ls
+  747  sudo vi Lepton.py
+  748  cd Desktop/pylepton/build/scripts-2.7/
+  749  sudo python pylepton_capture test5.tif
+  750  sudo python pylepton_capture test6.tif
+  751  sudo rm test6.tif 
+  752  sudo python pylepton_capture test6.tif
+  753  sudo rm test6.tif 
+  754  sudo python pylepton_capture test6.tif
+  755  sudo rm test6.tif 
+  756  sudo python pylepton_capture bb_100c.tif
+  757  sudo shutdown -h now
+  758  sudo dpkg-reconfigure keyboard-configuration
+  759  sudo raspi-config
+  760  cd Desktop/pylepton/build/scripts-2.7/
+  761  ls
+  762  sudo python pylepton_capture 100c_1.tif
+  763  sudo python pylepton_capture 100c_2.tif
+  764  sudo python pylepton_capture 100c_3.tif
+  765  sudo python pylepton_capture 100c_4.tif
+  766  sudo python pylepton_capture 150c_1.tif
+  767  sudo python pylepton_capture 150c_2.tif
+  768  sudo python pylepton_capture 150c_3.tif
+  769  sudo python pylepton_capture 150c_4.tif
+  770  sudo python pylepton_capture 200c_1.tif
+  771  sudo python pylepton_capture 200c_2.tif
+  772  sudo python pylepton_capture 200c_3.tif
+  773  sudo python pylepton_capture 200c_4.tif
+  774  sudo python pylepton_capture 250c_1.tif
+  775  sudo python pylepton_capture 250c_2.tif
+  776  sudo python pylepton_capture 250c_3.tif
+  777  sudo python pylepton_capture 250c_4.tif
+  778  sudo python pylepton_capture 300c_1.tif
+  779  sudo python pylepton_capture 300c_2.tif
+  780  sudo python pylepton_capture 300c_3.tif
+  781  sudo python pylepton_capture 300c_4.tif
+  782  sudo python pylepton_capture 350c_1.tif
+  783  sudo python pylepton_capture 350c_2.tif
+  784  sudo python pylepton_capture 350c_3.tif
+  785  sudo python pylepton_capture 350c_4.tif
+  786  sudo python pylepton_capture 3.tif
+  787  sudo rm 3.tif 
+  788  sudo python pylepton_capture 3.tif
+  789  sudo python pylepton_capture 4.tif
+  790  sudo python pylepton_capture 397c_1.tif
+  791  sudo python pylepton_capture 397c_2.tif
+  792  sudo python pylepton_capture 397c_3.tif
+  793  sudo python pylepton_capture 397c_4.tif
+  794  exit
+  795  sudo shutdown -h now
+  796  startx
+  797  cd Desktop/pylepton/build/scripts-2.7/
+  798  vi pylepton_capture 
+  799  sudo vi pylepton_capture 
+  800  vi pylepton_capture 
+  801  sudo vi pylepton_capture 
+  802  vi pylepton_capture 
+  803  exit
+  804  cd Desktop/pylepton/build/scripts-2.7/
+  805  sudo python pylepton_capture test_new.tif
+  806  exit
+  807  sudo shutdown -h now
+  808  cd Desktop/pylepton/build/scripts-2.7/
+  809  vi pylepton_capture 
+  810  sudo python pylepton_capture test_new.tif
+  811  sudo python pylepton_capture test_new2.tif
+  812  sudo python pylepton_capture test_new3.tif
+  813  sudo shutdown -h now
+  814  startx
+  815  vi pylepton_capture 
+  816  cd ..
+  817  ls
+  818  cd lib.linux-armv7l-2.7/
+  819  ls
+  820  cd pylepton/
+  821  ls
+  822  vi Lepton.py 
+  823  sudo vi Lepton.py 
+  824  vi Lepton.py 
+  825  exit
+  826  cd ..
+  827  ls
+  828  cd blackbody_2/
+  829  python pylepton_capture 100c_new.tif
+  830  python pylepton_capture 150c_new.tif
+  831  python pylepton_capture 100c_test3.tif
+  832  python pylepton_capture 250c_new.tif
+  833  python pylepton_capture 300c_new.tif
+  834  python pylepton_capture 350c_new.tif
+  835  python pylepton_capture 399c_new.tif
+  836  python pylepton_capture new.tif
+  837  python pylepton_capture blah.tif
+  838  python pylepton_capture 100c_test3.tif
+  839  python pylepton_capture 150c_test3.tif
+  840  python pylepton_capture 200c_test3.tif
+  841  python pylepton_capture 300c_test3.tif
+  842  vi pylepton_capture 
+  843  sudo shutdown -h now
+  844  cd Desktop/pylepton/build/
+  845  chmod 777 scripts-2.7/
+  846  sudo chmod 777 scripts-2.7/
+  847  cd scripts-2.7/
+  848  ls
+  849  mkdir blackbody_2
+  850  cd blackbody_2/
+  851  ls
+  852  startx
+  853  cd /
+  854  cd usr/local/lib/python2.7/dist-packages/pylepton/
+  855  ls
+  856  vi Lepton.py
+  857  exit
+  858  sudo shutdown -h now
+  859  cd Desktop/pylepton/build/scripts-2.7/
+  860  ls
+  861  cd blackbody_low_temp/
+  862  ls
+  863  python pylepton_capture test.tiff
+  864  python pylepton_capture 10deg_c.tiff
+  865  python pylepton_capture 12deg_c.tiff
+  866  python pylepton_capture 14deg_c.tiff
+  867  python pylepton_capture 16deg_c.tiff
+  868  python pylepton_capture 18deg_c.tiff
+  869  python pylepton_capture 20deg_c.tiff
+  870  python pylepton_capture 22deg_c.tiff
+  871  python pylepton_capture 24deg_c.tiff
+  872  python pylepton_capture 26deg_c.tiff
+  873  python pylepton_capture 28deg_c.tiff
+  874  python pylepton_capture 30deg_c.tiff
+  875  python pylepton_capture 32deg_c.tiff
+  876  python pylepton_capture 34deg_c.tiff
+  877  python pylepton_capture 36deg_c.tiff
+  878  python pylepton_capture 38deg_c.tiff
+  879  python pylepton_capture 40deg_c.tiff
+  880  python pylepton_capture 42deg_c.tiff
+  881  python pylepton_capture 44deg_c.tiff
+  882  python pylepton_capture 46deg_c.tiff
+  883  python pylepton_capture 48deg_c.tiff
+  884  python pylepton_capture 50deg_c.tiff
+  885  python pylepton_capture 52deg_c.tiff
+  886  python pylepton_capture 54deg_c.tiff
+  887  python pylepton_capture 56deg_c.tiff
+  888  python pylepton_capture 58deg_c.tiff
+  889  python pylepton_capture 60deg_c.tiff
+  890  python pylepton_capture 62deg_c.tiff
+  891  python pylepton_capture 64deg_c.tiff
+  892  python pylepton_capture 66deg_c.tiff
+  893  python pylepton_capture 68deg_c.tiff
+  894  python pylepton_capture 70deg_c.tiff
+  895  python pylepton_capture 72deg_c.tiff
+  896  python pylepton_capture 74deg_c.tiff
+  897  python pylepton_capture 76deg_c.tiff
+  898  python pylepton_capture 78deg_c.tiff
+  899  python pylepton_capture 80deg_c.tiff
+  900  sudo shutdown -h now
+  901  startx
+  902  cd Desktop/pylepton/build/scripts-2.7/clack\ body\ reflection\ test/
+  903  ls
+  904  python pylepton_capture test_straight_on.tiff
+  905  python pylepton_capture 300degc_test_straight_on.tiff
+  906  python pylepton_capture 300degc_test_reflect.tiff
+  907  python pylepton_capture 300degc_test_reflect2.tiff
+  908  sudo shutdown-h now
+  909  sudo shutdown -h now
+  910  ls
+  911  cd Desktop/
+  912  cd pylepton/build/scripts-2.7/
+  913  ls
+  914  vi test.py 
+  915  python test.py 
+  916  vi test.py 
+  917  python test.py 
+  918  vi test.py 
+  919  python test.py 
+  920  vi test.py 
+  921  python test.py 
+  922  vi test.py 
+  923  ls
+  924  vi test.py 
+  925  sudo python button.py 
+  926  pwd
+  927  ls
+  928  sudo python button.py 
+  929  cp pylepton_capture pylepton_capture.py
+  930  ls
+  931  sudo python button.py 
+  932  python pylepton_capture.py
+  933  vi test.p
+  934  vi test.py
+  935  sudo python button.py 
+  936  ls
+  937  sudo python button.py 
+  938  vim pylepton_capture.py
+  939  sudo python button.py 
+  940  ls
+  941  pwd
+  942  cp pylepton_capture capture
+  943  ls
+  944  cp capture capture.py
+  945  vi button.py 
+  946  cd Desktop/pylepton/build/scripts-2.7/
+  947  ls
+  948  nedit
+  949  nano
+  950  vi button.py 
+  951  python button.py 
+  952  sudo python button.py 
+  953  vi button.py 
+  954  ls
+  955  vi pylepton_capture.py
+  956  vi pylepton_capturecd
+  957  ls
+  958  cd blackbody_low_temp/
+  959  ls
+  960  vi pylepton_capture 
+  961  cd ..
+  962  ls
+  963  vi button.py 
+  964  python button.py 
+  965  sudo python button.py 
+  966  vi button.py 
+  967  cd ../../..
+  968  ls
+  969  vi button.py 
+  970  sudo python button.py 
+  971  vi button.py 
+  972  sudo python button.py 
+  973  vi button.py 
+  974  sudo python button.py 
+  975  vi button.py 
+  976  sudo python button.py 
+  977  vi button.py 
+  978  sudo python button.py 
+  979  vi button.py 
+  980  sudo python button.py 
+  981  vi button.py 
+  982  sudo python button.py 
+  983  vi button.py 
+  984  sudo python button.py 
+  985  vi button.py 
+  986  sudo python button.py 
+  987  vi button.py 
+  988  sudo python button.py 
+  989  vi button.py 
+  990  sudo python button.py 
+  991  vi button.py 
+  992  sudo python button.py 
+  993  vi button.py 
+  994  sudo python button.py 
+  995  vi button.py 
+  996  sudo python button.py 
+  997  vi button.py 
+  998  sudo python button.py 
+  999  vi button.py 
+ 1000  sudo python button.py 
+ 1001  vi button.py 
+ 1002  sudo python button.py 
+ 1003  vi button.py 
+ 1004  sudo python button.py 
+ 1005  ls
+ 1006  rm *.tiff
+ 1007  ls
+ 1008  sudo rm *.tiff
+ 1009  ls
+ 1010  sudo shutdown -h now
+ 1011  cd Desktop/
+ 1012  sudo python button.py 
+ 1013  vi button.py 
+ 1014  sudo python button.py 
+ 1015  vi button.py 
+ 1016  sudo rm *.tiff
+ 1017  sudo python button.py 
+ 1018  sudo rm *.tiff
+ 1019  vi button.py 
+ 1020  sudo python button.py 
+ 1021  sudo rm *.tiff
+ 1022  vi button.py 
+ 1023  sudo python button.py 
+ 1024  vi button.py 
+ 1025  sudo python button.py 
+ 1026  sudo rm *.tiff
+ 1027  vi button.py 
+ 1028  sudo python button.py 
+ 1029  vi button.py 
+ 1030  sudo rm *.tiff
+ 1031  vi button.py 
+ 1032  sudo python button.py 
+ 1033  sudo rm *.tiff
+ 1034  sudo shutdown -h now
+ 1035  startx
+ 1036  ls
+ 1037  cd
+ 1038  cd/
+ 1039  cd#
+ 1040  cd ..
+ 1041  ls
+ 1042  cd ..
+ 1043  ls
+ 1044  sudo vi etc/rc.local 
+ 1045  sudo reboot
+ 1046  cd Desktop/
+ 1047  ls
+ 1048  vi button.py
+ 1049  pwd
+ 1050  cd ../..
+ 1051  ls
+ 1052  rm *.tiff
+ 1053  sudo rm *.tiff
+ 1054  ls
+ 1055  sudo rm *.tiff
+ 1056  sudo reboot
+ 1057  ls
+ 1058  cd Desktop/
+ 1059  vi button.py 
+ 1060  startx
+ 1061  cd ../..
+ 1062  ls
+ 1063  cd 
+ 1064  cd Desktop/ sudo rm*.tiff
+ 1065  ls
+ 1066  sudo reboot
+ 1067  cd Desktop/
+ 1068  ls
+ 1069  sudo reboot
+ 1070  ls
+ 1071  cd ..
+ 1072  ls
+ 1073  sudo vi /etc/inittab
+ 1074  sudo reboot
+ 1075  cd ../..
+ 1076  ls 
+ 1077  cd etc
+ 1078  sudo vi /inittab
+ 1079  cd
+ 1080  cd ../..
+ 1081  ls
+ 1082  sudo vi /etc/inittab
+ 1083  sudo reboot
+ 1084  cd Desktop/ 
+ 1085  vi button.py 
+ 1086  sudo reboot
+ 1087  ls
+ 1088  cd Desktop/
+ 1089  ls
+ 1090  sudo rm *.tiff
+ 1091  ls
+ 1092  sudo shutdown -h now
+ 1093  startx
+ 1094  cd Desktop/
+ 1095  cd pylepton/build/scripts-2.7/
+ 1096  python pylepton_capture.py am_i_broken.tiff
+ 1097  cd
+ 1098  cd ../..
+ 1099  ls
+ 1100  cd usr/local/lib/python2.7/dist-packages/pylepton/
+ 1101  ls
+ 1102  vi Lepton.py
+ 1103  ls -la
+ 1104  cd Desktop/pylepton/build/scripts-2.7/black_body_low_temp_reflection_test/
+ 1105  python test.tiff
+ 1106  python pylepton_capture test.tiff
+ 1107  sudo reboot
+ 1108  cd Desktop/
+ 1109  python button.py 
+ 1110  sudo python button.py 
+ 1111  cd Desktop/
+ 1112  sudo rm *.tiff
+ 1113  vi button.py 
+ 1114  sudo rm *.tiff
+ 1115  cd pylepton/build/scripts-2.7/
+ 1116  mkdir pinholetest
+ 1117  cd pinholetest/
+ 1118  python pylepton_capture 80deg_pinhole_1.tiff
+ 1119  python pylepton_capture 80deg_pinhole_2.tiff
+ 1120  python pylepton_capture 80deg_pinhole_3.tiff
+ 1121  python pylepton_capture 80deg_NO_pinhole_1.tiff
+ 1122  python pylepton_capture 80deg_NO_pinhole_2.tiff
+ 1123  python pylepton_capture 80deg_NO_pinhole_3.tiff
+ 1124  python pylepton_capture 80deg_pinhole_close1.tiff
+ 1125  python pylepton_capture 80deg_pinhole_close2.tiff
+ 1126  cd Desktop/
+ 1127  sudo rm *.tiff
+ 1128  sudo shutdown -h now
+ 1129  startx
+ 1130  cd Desktop/
+ 1131  sudo rm *.tiff
+ 1132  cd ..#
+ 1133  cd ..
+ 1134  cd Desktop/
+ 1135  cd small\ pinhole\ test\ wih\ mirror/
+ 1136  python pylepton_capture small_pinhole_1_70degC.tiff
+ 1137  python pylepton_capture small_pinhole_2_70degC.tiff
+ 1138  python pylepton_capture small_pinhole_3_70degC.tiff
+ 1139  python pylepton_capture small_pinhole_4_70degC.tiff
+ 1140  python pylepton_capture large_pinhole_1_70degC.tiff
+ 1141  python pylepton_capture large_pinhole_2_70degC.tiff
+ 1142  python pylepton_capture large_pinhole_3_70degC.tiff
+ 1143  python pylepton_capture shinyMirror_large_pinhole_1_70degC.tiff
+ 1144  python pylepton_capture shinyMirror_small_pinhole_1_70degC.tiff
+ 1145  python pylepton_capture noMirror_small_pinhole_1_70degC.tiff
+ 1146  python pylepton_capture uncoatedMirror_no_pinhole_1_70degC.tiff
+ 1147  python pylepton_capture test_noMirror_noPinhole.tiff
+ 1148  sudo shutdown -h now
+ 1149  cd Desktop/Lepton/
+ 1150  ls
+ 1151  cd Lepton
+ 1152  ls
+ 1153  cd Lepton/
+ 1154  ls
+ 1155  cd ../..
+ 1156  ls
+ 1157  cd LeptonModule-master/
+ 1158  ls
+ 1159  cd raspberrypi_capture/
+ 1160  ls
+ 1161  raspberry_pi_capture
+ 1162  cd ..
+ 1163  ls
+ 1164  cd raspberrypi_video/
+ 1165  ls
+ 1166  sudo ./ raspberrypi_video
+ 1167  sudo ./raspberrypi_video
+ 1168  cd Desktop/
+ 1169  sudo rm *.tiff
+ 1170  cd alternate_methods/
+ 1171  python pylepton_capture gapbage_bag_1layer.tiff
+ 1172  python pylepton_capture gapbage_bag_2layer.tiff
+ 1173  python pylepton_capture gapbage_bag_4layer.tiff
+ 1174  python pylepton_capture gapbage_bag_nolayer.tiff
+ 1175  python pylepton_capture hand.tiff
+ 1176  python pylepton_capture hand_sdcardCase.tiff
+ 1177  python pylepton_capture hand_sdcardCase_2.tiff
+ 1178  python pylepton_capture hand_2.tiff
+ 1179  sudo shutdown -h now
+ 1180  startx
+ 1181  cd Desktop/alternate_methods/
+ 1182  ls
+ 1183  python pylepton_capture HDPE_70degC_1.tiff
+ 1184  python pylepton_capture HDPE_70degC_2.tiff
+ 1185  python pylepton_capture no_HDPE_70degC_1.tiff
+ 1186  python pylepton_capture HDPE_70degC_3.tiff
+ 1187  python pylepton_capture HDPE_70degC_4.tiff
+ 1188  python pylepton_capture PP_70degC_1.tiff
+ 1189  python pylepton_capture PP_70degC_2.tiff
+ 1190  python pylepton_capture PPandHDPE_70degC_1.tiff
+ 1191  python pylepton_capture PPandHDPE_70degC_2.tiff
+ 1192  cd Desktop/Lepton/
+ 1193  ls
+ 1194  cd LeptonModule-master/
+ 1195  ls
+ 1196  cd raspberrypi_video/
+ 1197  ls
+ 1198  sudo ./ raspberrypi_video
+ 1199  sudo ./raspberrypi_video
+ 1200  cd Desktop/Lepton/
+ 1201  ls
+ 1202  cd LeptonModule-master/
+ 1203  ls
+ 1204  cd raspberrypi_video/
+ 1205  sudo ./raspberrypi_video 
+ 1206  cd Desktop/
+ 1207  cd alternate_methods/
+ 1208  ls
+ 1209  cd Desktop/ 
+ 1210  sudo rm *.tiff
+ 1211  startx
+ 1212  cd Desktop/Lepton/LeptonModule-master/ls
+ 1213  cd Desktop/Lepton/LeptonModule-master/raspberrypi_video/
+ 1214  sudo ./raspberrypi_video 
+ 1215  cd Desktop/alternate_methods/
+ 1216  ls
+ 1217  pylepton_capture HDPE_1layer.tiff
+ 1218  python pylepton_capture HDPE_1layer.tiff
+ 1219  python pylepton_capture HDPE_2layer.tiff
+ 1220  python pylepton_capture HDPE_2layer_withFingerHeat.tiff
+ 1221  python pylepton_capture HDPE_2layer.tiff
+ 1222  sudo shutdown -h now
+ 1223  cd Desktop/
+ 1224  cd alternate_methods/
+ 1225  python pylepton_capture HDPE_2layers_300degC_1.tiff
+ 1226  python pylepton_capture HDPE_1layers_300degC_1.tiff
+ 1227  cd High_temp_HDPE/
+ 1228  python pylepton_capture HDPE_1layers_399degC_1.tiff
+ 1229  python pylepton_capture HDPE_2layers_399degC_1.tiff
+ 1230  python pylepton_capture HDPE_3layers_399degC_1.tiff
+ 1231  python pylepton_capture HDPE_4layers_399degC_1.tiff
+ 1232  python pylepton_capture HDPE_4layers_350degC_1.tiff
+ 1233  python pylepton_capture HDPE_3layers_350degC_1.tiff
+ 1234  python pylepton_capture HDPE_2layers_350degC_1.tiff
+ 1235  python pylepton_capture HDPE_1layers_350degC_1.tiff
+ 1236  python pylepton_capture HDPE_3layers_300degC_1.tiff
+ 1237  python pylepton_capture HDPE_4layers_300degC_1.tiff
+ 1238  python pylepton_capture HDPE_4layers_250degC_1.tiff
+ 1239  python pylepton_capture HDPE_3layers_250degC_1.tiff
+ 1240  python pylepton_capture HDPE_2layers_250degC_1.tiff
+ 1241  python pylepton_capture HDPE_1layers_250degC_1.tiff
+ 1242  python pylepton_capture HDPE_1layers_200degC_1.tiff
+ 1243  python pylepton_capture HDPE_2layers_200degC_1.tiff
+ 1244  python pylepton_capture HDPE_3layers_200degC_1.tiff
+ 1245  python pylepton_capture HDPE_4layers_200degC_1.tiff
+ 1246  python pylepton_capture HDPE_4layers_150degC_1.tiff
+ 1247  python pylepton_capture HDPE_3layers_150degC_1.tiff
+ 1248  python pylepton_capture HDPE_2layers_150degC_1.tiff
+ 1249  python pylepton_capture HDPE_1layers_150degC_1.tiff
+ 1250  python pylepton_capture HDPE_1layers_100degC_1.tiff
+ 1251  python pylepton_capture HDPE_2layers_100degC_1.tiff
+ 1252  python pylepton_capture HDPE_3layers_100degC_1.tiff
+ 1253  python pylepton_capture HDPE_4layers_100degC_1.tiff
+ 1254  startx
+ 1255  cd Desktop/
+ 1256  sudo rm *.tiff
+ 1257  sudo shutdown -h now
+ 1258  startx
+ 1259  ls
+ 1260  cd Desktop/
+ 1261  ls
+ 1262  cd Lepton/
+ 1263  ls
+ 1264  cd
+ 1265  startx
+ 1266  ifconfig
+ 1267  ls
+ 1268  cd Desktop/
+ 1269  ls
+ 1270  cd Lepton/
+ 1271  ls
+ 1272  cd LeptonModule-master/
+ 1273  ls
+ 1274  cd raspberrypi_video/
+ 1275  ls
+ 1276  nedit Lepton_I2C.cpp 
+ 1277  sudo apt-get install -f nedit
+ 1278  nedit Lepton_I2C.cpp 
+ 1279  nedit Lepton_I2C.h 
+ 1280  make
+ 1281  ls -la
+ 1282  sudo shutdown -h now
+ 1283  g++
+ 1284  cd Desktop/
+ 1285  sudo rm *.tiff
+ 1286  cd
+ 1287  cd Desktop/Lepton/LeptonModule-master/raspberrypi_video/
+ 1288  ls
+ 1289  sudo ./Lepton_I2C
+ 1290  ls -la
+ 1291  qmake && make
+ 1292  qmake && make
+ 1293  cd ..
+ 1294  ls
+ 1295  cd raspberrypi_video/
+ 1296  ls
+ 1297  cd leptonSDKEmb32PUB/
+ 1298  ls
+ 1299  make
+ 1300  cd ..
+ 1301  make
+ 1302  qmake
+ 1303  make
+ 1304  sudo ./Lepton_I2C
+ 1305  ls
+ 1306  cp Lepton_I2C.o Lepton_I2C
+ 1307  ls
+ 1308  sudo ./Lepton_I2C
+ 1309  sudo ./raspberrypi_vidoe
+ 1310  sudo ./raspberrypi_video
+ 1311  vi Lepton_I2C.cpp
+ 1312  sudo ./Lepton_I2C.cpp
+ 1313  sudo ./Lepton_I2C.o
+ 1314  sudo ./Lepton_I2C.h
+ 1315  sudo ./Lepton_I2C
+ 1316  ls
+ 1317  g++ -V
+ 1318  g++ 
+ 1319  startx
+ 1320  cd Desktop/Lepton/LeptonModule-master/raspberrypi_video/
+ 1321  sudo ./Lepton_I2C
+ 1322  ls
+ 1323  rm Lepton_I2C
+ 1324  ls
+ 1325  sudo ./Lepton_I2C
+ 1326  sudo ./Lepton_I2C.cpp
+ 1327  sudo ./Lepton_I2C.o
+ 1328  vi Lepton_I2C.cpp 
+ 1329  vi Lepton_I2C.h
+ 1330  sudo ./lepton_temperature
+ 1331  sudo ./lepton_temperature()
+ 1332  ls
+ 1333  ls
+ 1334  cd ..
+ 1335  ls
+ 1336  sudo shutdown -h now
+ 1337  ping google.com
+ 1338  cd Desktop/Lepton/LeptonModule-master/raspberrypi_video/
+ 1339  sudo ./raspberrypi_video 
+ 1340  make
+ 1341  rm Lepton_I2C.o
+ 1342  sudo rm Lepton_I2C.o
+ 1343  ls
+ 1344  make
+ 1345  sudo aptget g++
+ 1346  sudo apget g++
+ 1347  sudo aptget g++
+ 1348  g++
+ 1349  g++ Lepton_I2C
+ 1350  g++ Lepton_I2C.cpp
+ 1351  cd Desktop/
+ 1352  sudo rm *.tiff
+ 1353  startx
+ 1354  cd Desktop/Lepton/LeptonModule-master/raspberrypi_video/
+ 1355  ls
+ 1356  g++ -o myProgram Lepton_I2C.cpp
+ 1357  vi Lepton_I2C.cpp 
+ 1358  ls
+ 1359  g++ Lepton_I2C.cpp 
+ 1360  ping google.com
+ 1361  sudo shutdown -h now
+ 1362  cd Desktop/
+ 1363  ls
+ 1364  cd picam/
+ 1365  ls
+ 1366  vi link.txt
+ 1367  exit
+ 1368  cd Desktop/Lepton/LeptonModule-master/raspberrypi_video/
+ 1369  ls
+ 1370  vi Lepton_I2C.cpp
+ 1371  vi main.cpp 
+ 1372  ls
+ 1373  grep main *.cpp
+ 1374  vi Lepton_I2C.cpp
+ 1375  grep lepton_temperature *.cpp
+ 1376  vi Lepton_I2C.cpp
+ 1377  grep main *.cpp
+ 1378  vi main.cpp 
+ 1379  make
+ 1380  make clean
+ 1381  make
+ 1382  rm Lepton_I2C.o
+ 1383  make
+ 1384  vi Lepton_I2C.
+ 1385  vi Lepton_I2C.cpp
+ 1386  make
+ 1387  vi Lepto_I2C.h
+ 1388  vi Lepton_I2C.h
+ 1389  vi Lepton_I2C.cpp
+ 1390  make
+ 1391  vi Lepton_I2C.cpp
+ 1392  make
+ 1393  g++ -Wl,-O1 -o foo Lepton_I2C.o LeptonThread.o MyLabel.o Palettes.o SPI.o moc_LeptonThread.o moc_MyLabel.o    -L/usr/lib/arm-linux-gnueabihf -LleptonSDKEmb32PUB/Debug -lLEPTON_SDK -lQtGui -lQtCore -lpthread
+ 1394  ./foo
+ 1395  sudo raspi-config
+ 1396  ./foo
+ 1397  vi compile_command.txt
+ 1398  ./foo
+ 1399  sudo reboot
+ 1400  startx
+ 1401  cd Desktop/Lepton/LeptonModule-master/raspberrypi_video/
+ 1402  ./foo
+ 1403  i2cdetect -y 1
+ 1404  raspiconfig
+ 1405  sudo raspi-config
+ 1406  i2cdetect -y 1
+ 1407  sudo aptget install i2c-tools
+ 1408  sudo apt-get install i2c-tools
+ 1409  i2cdetect -y 1
+ 1410  i2cdetect -y 0
+ 1411  sudo reboot
+ 1412  cd /
+ 1413  ls
+ 1414  cd dev/
+ 1415  cd Desktop/Lepton/LeptonModule-master/raspberrypi_video/
+ 1416  i2cdetect -y 0
+ 1417  i2cdetect -y 1
+ 1418  cd /dev/
+ 1419  ls
+ 1420  sudo nano edit /etc/modules
+ 1421  sudo nano /etc/modules
+ 1422  sudo reboot
+ 1423  startx
+ 1424  i2cdetect -y 1
+ 1425  i2cdetect -y 0
+ 1426  sudo nano /etc/modprobe.d/raspi-blacklist.conf 
+ 1427  cd /
+ 1428  ls
+ 1429  sudo nano boot/config.txt 
+ 1430  sudo reboot
+ 1431  starx
+ 1432  startx
+ 1433  i2cdetect -y 0
+ 1434  i2cdetect -y 1
+ 1435  sudo nano boot/config.txt 
+ 1436  sudo nano /boot/config.txt 
+ 1437  sudo vi /boot/config.txt 
+ 1438  i2cdetect -y 1
+ 1439  i2cdetect -y 0
+ 1440  sudo reboot
+ 1441  i2cdetect -y 0
+ 1442  i2cdetect -y 1
+ 1443  sudo nano /etc/modprobe.d/raspi-blacklist.conf 
+ 1444  cd /
+ 1445  cd etc/
+ 1446  ls
+ 1447  vi modprobe.d/
+ 1448  sudo nano /etc/modules 
+ 1449  sudo reboot
+ 1450  i2cdetect -y 0
+ 1451  i2cdetect -y 1
+ 1452  cd Desktop/Lepton/LeptonModule-master/raspberrypi_video/
+ 1453  ./foo
+ 1454  history
+ 1455  history > log.txt

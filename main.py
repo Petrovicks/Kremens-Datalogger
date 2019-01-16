@@ -48,18 +48,11 @@ def set_clock_from_internet(clock):
                 error = open('/home/pi/Desktop/error.txt', 'w')
                 error.write(str(e))
                 error.close()
-            GPIO.output(speaker, True)
-            time.sleep(0.05)
-            GPIO.output(speaker, False)
-            time.sleep(0.05)
-            GPIO.output(speaker, True)
-            time.sleep(0.05)
-            GPIO.output(speaker, False)
-            time.sleep(0.05)
-            GPIO.output(speaker, True)
-            time.sleep(0.05)
-            GPIO.output(speaker, False)
-            time.sleep(0.05)
+            for i in range(3):
+                GPIO.output(speaker, True)
+                time.sleep(0.05)
+                GPIO.output(speaker, False)
+                time.sleep(0.05)
     else:
         print "Error connecting to wifi.."
 
@@ -83,27 +76,27 @@ def check_clock_validity(clock):
             #Check if resetting oscillator worked.
             if check_clock_validity():
                 if mounted:
-                    error = open('/media/usb/error.txt','w')
+                    error = open('/media/usb/error.txt','a')
                     error.write('Oscillator bit reset, RTC reset to default time.')
                     error.close()
                 else:
-                    error = open('/home/pi/Desktop/error.txt', 'w')
+                    error = open('/home/pi/Desktop/error.txt', 'a')
                     error.write('Oscillator bit reset, RTC reset to default time.')
                     error.close()
             else:
                 _USE_HW_CLOCK = True
                 rtc_time = datetime.datetime.now() 
                 if mounted:
-                    error = open('/media/usb/error.txt','w')
+                    error = open('/media/usb/error.txt','a')
                     error.write('Unable to reset RTC, using Pi HW clock.')
                     error.close()
                 else:
-                    error = open('/home/pi/Desktop/error.txt', 'w')
+                    error = open('/home/pi/Desktop/error.txt', 'a')
                     error.write('Unable to reset RTC, using Pi HW clock.')
                     error.close()
 
         #Three rapid beeps in succession if there was a clock issue.
-        for i in range(3)
+        for i in range(3):
             GPIO.output(speaker, True)
             time.sleep(0.05)
             GPIO.output(speaker, False)
@@ -170,9 +163,7 @@ def main():
                 #Time Stuff - Create new folder after time limit
                 if eventTime-startTime >= 60*10: #If time is greater than 600 seconds
                     if _USE_HW_CLOCK == False:
-                        rtc_time = clock.read_datetime() #Get time from RTC
-                        bashCommand = "date -s '" + rtc_time.strftime("%Y-%m-%d %H:%M:%S") + "'"
-                        subprocess.call(bashCommand, shell=True) #Sync Pi HW clock with RTC
+                        validTime = check_clock_validity(clock) #Also sets appropriate timer.
                     else:
                         rtc_time = datetime.datetime.now()
                     rtc_time = rtc_time.timetuple()
@@ -234,7 +225,7 @@ def main():
     #If USB is no longer mounted it is out of storage.
     #TODO: Make more robust, the usb check assumes it is mounted as sda or sda1
     mounted = False
-    raise TypeError('Out of USB Storage')
+    raise TypeError('USB out of memory or disconnected.')
     focalPlane = numpy.ones((1))*1.0
     fpa = focalPlane*fpa
     auxTemp = numpy.ones((1))*1.0
@@ -262,8 +253,11 @@ if __name__ == '__main__':
 
     try:
         main()
-    except:
-        print "Unexpected exit."
+    except Exception, e:
+        error = open('/home/pi/Desktop/error.txt',  'a')
+        print 'Unexpected exit from main(), please check error log written to desktop.'
+        error.write('Time: ' + datetime.datetime.now() + '\n' + str(e) + '\n\n')
+        error.close()
         while True:
             GPIO.output(speaker, True)
             time.sleep(1)
