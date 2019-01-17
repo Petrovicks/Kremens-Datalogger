@@ -70,36 +70,34 @@ def check_clock_validity(clock):
         rtc_time = rtc_time.timetuple()
         return True
     except Exception, e:
-    print 'Issue with reading from RTC...'
+        print 'Issue with reading from RTC...'
         clockOk = False
-        clockRegZero = clock._read(clock._REG_SECONDS)
-        if clockRegZero > 127:
-            print 'Oscillator bit set..'
-            clock._write(clock._REG_SECONDS, 1)
-            while clock._read(clock._REG_SECONDS) != 1:
-                pass
-            clock._write(clock._REG_SECONDS, 0)
-            clock.write_datetime(datetime.datetime.now())
-            #Check if resetting oscillator worked.
-            if check_clock_validity(clock):
-                if mounted:
-                    error = open('/media/usb/error.txt','a')
-                    error.write('\nOscillator bit reset, RTC reset to default time.')
-                    error.close()
-                error = open('/home/pi/Desktop/error.txt', 'a')
+        print 'Oscillator bit set..'
+        clock._write(clock._REG_SECONDS, 1) #Turn off oscillator
+        while clock._read(clock._REG_SECONDS) != 1: #Ensure the register was written to.
+            pass
+        clock._write(clock._REG_SECONDS, 0) #Turn oscillator back on
+        clock.write_datetime(datetime.datetime.now()) #Set RTC to Pi time
+        if check_clock_validity(clock): #Check if oscillator reset made RTC work again
+            if mounted:
+                error = open('/media/usb/error.txt','a')
                 error.write('\nOscillator bit reset, RTC reset to default time.')
                 error.close()
-        return True
-            else:
-                _USE_HW_CLOCK = True
-                rtc_time = datetime.datetime.now()
-                if mounted:
-                    error = open('/media/usb/error.txt','a')
-                    error.write('Unable to reset RTC, using Pi HW clock.')
-                    error.close()
-                error = open('/home/pi/Desktop/error.txt', 'a')
-                error.write('\nUnable to reset RTC, using Pi HW clock.')
+            error = open('/home/pi/Desktop/error.txt', 'a')
+            error.write('\nOscillator bit reset, RTC reset to default time.')
+            error.close()
+            return True
+        else:
+            _USE_HW_CLOCK = True #Ignore RTC and use Pi clock only.
+            rtc_time = datetime.datetime.now()
+            if mounted:
+                error = open('/media/usb/error.txt','a')
+                error.write('Unable to reset RTC, using Pi HW clock.')
                 error.close()
+            error = open('/home/pi/Desktop/error.txt', 'a')
+            error.write('\nUnable to reset RTC, using Pi HW clock.')
+            error.close()
+            return False
 
         #Three rapid beeps in succession if there was a clock issue.
         for i in range(3):
@@ -107,6 +105,7 @@ def check_clock_validity(clock):
             time.sleep(0.05)
             GPIO.output(speaker, False)
             time.sleep(0.05)
+
 
 def main():
     global mounted
@@ -129,6 +128,7 @@ def main():
     print 'USB mount :' + str(mounted)
     if mounted == False:
     raise TypeError('Failed to mount USB.')
+
     #Buzz start up sound
     GPIO.output(speaker,False)
     GPIO.output(redLED,False)
@@ -169,36 +169,36 @@ def main():
     count = 0
     count2 = 0
     while check_usb(): #Continue running as long as USB is inserted.
-            if validTime:
-                #Time Stuff - Create new folder after time limit
-                if eventTime-startTime >= 60*10: #If time is greater than 600 seconds
-                    if _USE_HW_CLOCK == False:
-                        print "Getting RTC time.."
-                        rtc_time = clock.read_datetime() #Get time from RTC
-                        bashCommand = "date -s '" + rtc_time.strftime("%Y-%m-%d %H:%M:%S") + "'"
-                        subprocess.call(bashCommand, shell=True) #Sync Pi HW clock with RTC
-                    else:
-                        print "Using HW clock..."
-            rtc_time = datetime.datetime.now()
-                    rtc_time = rtc_time.timetuple()
-                    dirName = "%04d-%02d-%02d--%02d-%02d-%02d"%(rtc_time[0],rtc_time[1],rtc_time[2],rtc_time[3],rtc_time[4],rtc_time[5])
-                    fullDN = '/media/usb/'+dirName
-                    os.mkdir(fullDN)
-                    startTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
+        if validTime:
+            #Time Stuff - Create new folder after time limit
+            if eventTime-startTime >= 60*10: #If time is greater than 600 seconds
+                if _USE_HW_CLOCK == False:
+                    print "Getting RTC time.."
+                    rtc_time = clock.read_datetime() #Get time from RTC
+                    bashCommand = "date -s '" + rtc_time.strftime("%Y-%m-%d %H:%M:%S") + "'"
+                    subprocess.call(bashCommand, shell=True) #Sync Pi HW clock with RTC
+                else:
+                    print "Using HW clock..."
+                    rtc_time = datetime.datetime.now()
+                rtc_time = rtc_time.timetuple()
+                dirName = "%04d-%02d-%02d--%02d-%02d-%02d"%(rtc_time[0],rtc_time[1],rtc_time[2],rtc_time[3],rtc_time[4],rtc_time[5])
+                fullDN = '/media/usb/'+dirName
+                os.mkdir(fullDN)
+                startTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
 
-                #Enforce one second increments between pictures using Pi HW clock
-                dTime = 0
-                while dTime < 1:
-                    currentTime = datetime.datetime.now()
-                    currentTime = currentTime.timetuple()
-                    t1 = (currentTime[3]*60*60) + (currentTime[4]*60) + (currentTime[5])
-                    dTime = abs(t1 - eventTime)
-                eventTime = t1
-                timez = "%02d-%02d-%02d"%(currentTime[3],currentTime[4],currentTime[5])
-                if clockOk == True:
-            GPIO.output(speaker, True)
-                    time.sleep(0.1)
-                    GPIO.output(speaker,False)
+            #Enforce one second increments between pictures using Pi HW clock
+            dTime = 0
+            while dTime < 1:
+                currentTime = datetime.datetime.now()
+                currentTime = currentTime.timetuple()
+                t1 = (currentTime[3]*60*60) + (currentTime[4]*60) + (currentTime[5])
+                dTime = abs(t1 - eventTime)
+            eventTime = t1
+            timez = "%02d-%02d-%02d"%(currentTime[3],currentTime[4],currentTime[5])
+            if clockOk == True:
+                GPIO.output(speaker, True)
+                time.sleep(0.1)
+                GPIO.output(speaker,False)
         else:
             for i in range(3):
                 GPIO.output(speaker, True)

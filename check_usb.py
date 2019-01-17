@@ -6,7 +6,7 @@ def check_usb():
     output = df.communicate()[0]
     device, size, used, available, percent, mountpoint = \
             output.split('\n')[1].split()
-    if device == '/dev/sda1' or device == '/dev/sda':
+    if device == '/dev/sda1' or device == '/dev/sda' or device == '/dev/sdb' or device == '/dev/sdb1':
         if int(percent[:-1])<98:
             return True
         else:

@@ -14,6 +14,12 @@ def mount_usb():
         elif device == '/dev/sda':
             subprocess.Popen(['sudo','mount','/dev/sda','/media/usb'])
             mounted = True
+        elif device == '/dev/sdb1':
+            subprocess.Popen(['sudo','mount','/dev/sdb1','/media/usb'])
+            mounted = True
+        elif device == '/dev/sdb':
+            subprocess.Popen(['sudo','mount','/dev/sdb','/media/usb'])
+            mounted = True
     return mounted
 if __name__ == '__main__':
     print mount_usb()
