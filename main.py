@@ -127,7 +127,7 @@ def main():
     mounted = mount_usb()
     print 'USB mount :' + str(mounted)
     if mounted == False:
-    raise TypeError('Failed to mount USB.')
+        raise TypeError('Failed to mount USB.')
 
     #Buzz start up sound
     GPIO.output(speaker,False)

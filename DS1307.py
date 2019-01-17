@@ -86,7 +86,7 @@ class DS1307():
 
     def _read_hours(self):
         d = self._read(self._REG_HOURS)
-        if d & 0x40:
+        if not d & 0x40:
             return _bcd_to_int(d & 0x3F)
         else:
             h = _bcd_to_int(d & 0x1F)
