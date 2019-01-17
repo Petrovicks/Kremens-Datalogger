@@ -152,7 +152,7 @@ def main():
         clock = DS1307.DS1307(1, 0x68) #Initializes handler for RTC with HW ADDR as 0x68
         set_clock_from_internet(clock)
         validTime = check_clock_validity(clock)
-    print clockOk
+        print clockOk
     else:
         validTime = False
         if mounted:
@@ -199,49 +199,49 @@ def main():
                 GPIO.output(speaker, True)
                 time.sleep(0.1)
                 GPIO.output(speaker,False)
-        else:
-            for i in range(3):
-                GPIO.output(speaker, True)
-                time.sleep(0.05)
-                GPIO.output(speaker, False)
-                time.sleep(0.05)
             else:
-                #Error with reading RTC or HW clock
-                if count2 == 0:
-                    for name in os.listdir('/media/usb/'):
-                        if name[:8] == 'noclock_':
-                            count3 = int(name[8:])
-                            if count3 > count2:
-                                count2 = count3
-                if eventTime-startTime >= 60*10:
-                    count2 += 1
-                    dirName = 'noclock_'+str(count2)
-                    fullDN = '/media/usb/'+dirName
-                    os.mkdir(fullDN)
-                    startTime = time.time()
-                timez = "0"
-                for i in range(2):
+                for i in range(3):
                     GPIO.output(speaker, True)
                     time.sleep(0.05)
-                    GPIO.output(speaker,False)
+                    GPIO.output(speaker, False)
                     time.sleep(0.05)
-            if mode == 1:
-                image,fpa,aux = capture(flip_v=False, device = "/dev/spidev0.1")
-                cv2.imwrite(fullDN+'/image_thermal_%s_%09d.png'%(timez,count),image)
-                #Capture and save from the rgb camera
-                camera.capture(fullDN+'/image_rgb_%s_%09d.jpg'%(timez,count))#,quality=10)
-                generate_header(fullDN,'image_thermal_%s_%09d'%(timez,count),timez,fpa,aux)
-                count += 1
-            elif mode == 2:
-                camera.start_recording(fullDN+'/video_rgb_%s_%09d.h264'%(timez,count))
-                camera.wait_recording(10)
-                camera.stop_recording()
-                print 'Video captured'
-            elif mode == 3:
-                image,fpa,aux = capture(flip_v=False, device = "/dev/spidev0.1")
-                cv2.imwrite(fullDN+'/image_thermal_%s_%09d.png'%(timez,count),image)
-                print 'Thermal captured'
-                generate_header(fullDN,'image_thermal_%s_%09d'%(timez,count),timez,fpa,aux)
+        else:
+            #Error with reading RTC or HW clock
+            if count2 == 0:
+                for name in os.listdir('/media/usb/'):
+                    if name[:8] == 'noclock_':
+                        count3 = int(name[8:])
+                        if count3 > count2:
+                            count2 = count3
+            if eventTime-startTime >= 60*10:
+                count2 += 1
+                dirName = 'noclock_'+str(count2)
+                fullDN = '/media/usb/'+dirName
+                os.mkdir(fullDN)
+                startTime = time.time()
+            timez = "0"
+            for i in range(2):
+                GPIO.output(speaker, True)
+                time.sleep(0.05)
+                GPIO.output(speaker,False)
+                time.sleep(0.05)
+        if mode == 1:
+            image,fpa,aux = capture(flip_v=False, device = "/dev/spidev0.1")
+            cv2.imwrite(fullDN+'/image_thermal_%s_%09d.png'%(timez,count),image)
+            #Capture and save from the rgb camera
+            camera.capture(fullDN+'/image_rgb_%s_%09d.jpg'%(timez,count))#,quality=10)
+            generate_header(fullDN,'image_thermal_%s_%09d'%(timez,count),timez,fpa,aux)
+            count += 1
+        elif mode == 2:
+            camera.start_recording(fullDN+'/video_rgb_%s_%09d.h264'%(timez,count))
+            camera.wait_recording(10)
+            camera.stop_recording()
+            print 'Video captured'
+        elif mode == 3:
+            image,fpa,aux = capture(flip_v=False, device = "/dev/spidev0.1")
+            cv2.imwrite(fullDN+'/image_thermal_%s_%09d.png'%(timez,count),image)
+            print 'Thermal captured'
+            generate_header(fullDN,'image_thermal_%s_%09d'%(timez,count),timez,fpa,aux)
 
     #If USB is no longer mounted it is out of storage.
     #TODO: Make more robust, the usb check assumes it is mounted as sda or sda1
