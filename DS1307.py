@@ -86,10 +86,10 @@ class DS1307():
 
     def _read_hours(self):
         d = self._read(self._REG_HOURS)
-        if not d << 6:
-            if d << 5:
+        if not d & 0x40:
+            if d & 0x20:
                 return int(d & 0x0F) + 20
-            if d << 4:
+            if d & 0x10:
                 return int(d & 0x0F) + 10
             else:
                 return int(d & 0x0F)
@@ -163,7 +163,10 @@ class DS1307():
             if hours < 0 or hours > 23:
                 raise ValueError('Hours is out of range [0,23].')
             if save_as_24h:
-                bcd_hours = (hours//10 << 4) | (hours % 10)
+                if hours > 20:
+                    bcd_hours = (hours//10 << 4) | (hours % 10)
+                else:
+                    bcd_hours = (hours//10 << 3) | (hours % 10)
                 self._write(self._REG_HOURS, bcd_hours)
             else:
                 if hours == 0:
