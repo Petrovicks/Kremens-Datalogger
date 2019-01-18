@@ -58,7 +58,7 @@ def set_clock_from_internet(clock):
         print "Error connecting to wifi.."
 
 
-def check_clock_validity(clock):
+def check_clock_validity(clock, retry):
     global clockOk
     global _USE_HW_CLOCK
     global mounted
@@ -72,24 +72,25 @@ def check_clock_validity(clock):
     except Exception, e:
         print 'Issue with reading from RTC...'
         clockOk = False
-        print 'Oscillator bit set..'
+        print 'Setting oscillator bit, attempting to rectify time..'
         clock._write(clock._REG_SECONDS, 1) #Turn off oscillator
         while clock._read(clock._REG_SECONDS) != 1: #Ensure the register was written to.
             pass
         clock._write(clock._REG_SECONDS, 0) #Turn oscillator back on
-        clock.write_datetime(datetime.datetime.now()) #Set RTC to Pi time
-        if check_clock_validity(clock): #Check if oscillator reset made RTC work again
-            if mounted:
-                error = open('/media/usb/error.txt','a')
+        clock.write_datetime(datetime.datetime.utcnow()) #Set RTC to Pi time
+        if retry:
+            if check_clock_validity(clock, False): #Check if oscillator reset made RTC work again
+                if mounted:
+                    error = open('/media/usb/error.txt','a')
+                    error.write('\nOscillator bit reset, RTC reset to default time.')
+                    error.close()
+                error = open('/home/pi/Desktop/error.txt', 'a')
                 error.write('\nOscillator bit reset, RTC reset to default time.')
                 error.close()
-            error = open('/home/pi/Desktop/error.txt', 'a')
-            error.write('\nOscillator bit reset, RTC reset to default time.')
-            error.close()
-            return True
+                return True
         else:
             _USE_HW_CLOCK = True #Ignore RTC and use Pi clock only.
-            rtc_time = datetime.datetime.now()
+            rtc_time = datetime.datetime.utcnow()
             if mounted:
                 error = open('/media/usb/error.txt','a')
                 error.write('Unable to reset RTC, using Pi HW clock.')
@@ -151,7 +152,7 @@ def main():
     if clockCheck:
         clock = DS1307.DS1307(1, 0x68) #Initializes handler for RTC with HW ADDR as 0x68
         set_clock_from_internet(clock)
-        validTime = check_clock_validity(clock)
+        validTime = check_clock_validity(clock, True)
         print clockOk
     else:
         validTime = False
@@ -174,7 +175,10 @@ def main():
             if eventTime-startTime >= 60*10: #If time is greater than 600 seconds
                 if _USE_HW_CLOCK == False:
                     print "Getting RTC time.."
-                    rtc_time = clock.read_datetime() #Get time from RTC
+                    try:
+                        rtc_time = clock.read_datetime() #Get time from RTC
+                    except:
+                        check_clock_validity(clock, True)
                     bashCommand = "date -s '" + rtc_time.strftime("%Y-%m-%d %H:%M:%S") + "'"
                     subprocess.call(bashCommand, shell=True) #Sync Pi HW clock with RTC
                 else:
