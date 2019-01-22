@@ -73,10 +73,10 @@ def check_clock_validity(clock, retry):
         print 'Issue with reading from RTC...'
         clockOk = False
         print 'Setting oscillator bit, attempting to rectify time..'
-        clock._write(clock._REG_SECONDS, 1) #Turn off oscillator
-        while clock._read(clock._REG_SECONDS) != 1: #Ensure the register was written to.
+        clock._write(clock._REG_SECONDS, 0x80) #Turn off oscillator
+        while clock._read(clock._REG_SECONDS) != 0x80: #Ensure the register was written to.
             pass
-        clock._write(clock._REG_SECONDS, 0) #Turn oscillator back on
+        clock._write(clock._REG_SECONDS, 0x00) #Turn oscillator back on
         clock.write_datetime(datetime.datetime.utcnow()) #Set RTC to Pi time
         if retry:
             if check_clock_validity(clock, False): #Check if oscillator reset made RTC work again
@@ -153,7 +153,6 @@ def main():
         clock = DS1307.DS1307(1, 0x68) #Initializes handler for RTC with HW ADDR as 0x68
         set_clock_from_internet(clock)
         validTime = check_clock_validity(clock, True)
-        print clockOk
     else:
         validTime = False
         if mounted:
@@ -169,6 +168,7 @@ def main():
     startTime = 0
     count = 0
     count2 = 0
+    duplicateDirNum = 0
     while check_usb(): #Continue running as long as USB is inserted.
         #Very dirty, hopefully temporary as a measure to combat unexpected USB miscommunication.
         try:
@@ -185,17 +185,21 @@ def main():
                         subprocess.call(bashCommand, shell=True) #Sync Pi HW clock with RTC
                     else:
                         print "Using HW clock..."
-                        rtc_time = datetime.datetime.now()
+                        rtc_time = datetime.datetime.utcnow()
                     rtc_time = rtc_time.timetuple()
                     dirName = "%04d-%02d-%02d--%02d-%02d-%02d"%(rtc_time[0],rtc_time[1],rtc_time[2],rtc_time[3],rtc_time[4],rtc_time[5])
                     fullDN = '/media/usb/'+dirName
-                    os.mkdir(fullDN)
+                    try:
+                        os.mkdir(fullDN)
+                    except:
+                        duplicateDirNum+=1;
+                        os.mkdir(fullDN + '_dupe_' +str(duplicateDirNum))
                     startTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
 
                 #Enforce one second increments between pictures using Pi HW clock
                 dTime = 0
                 while dTime < 1:
-                    currentTime = datetime.datetime.now()
+                    currentTime = datetime.datetime.utcnow()
                     currentTime = currentTime.timetuple()
                     t1 = (currentTime[3]*60*60) + (currentTime[4]*60) + (currentTime[5])
                     dTime = abs(t1 - eventTime)
@@ -250,7 +254,7 @@ def main():
                 generate_header(fullDN,'image_thermal_%s_%09d'%(timez,count),timez,fpa,aux)
         except Exception, e:
             #If USB is no longer mounted it is out of storage.
-            #TODO: Make more robust, the usb check assumes it is mounted as sda or sda1
+            #TODO: Make more robust, the usb check assumes it is mounted as sda or sdb
             if mount_usb():
                 pass
             else:
