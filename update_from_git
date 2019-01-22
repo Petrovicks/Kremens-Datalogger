@@ -1,0 +1,21 @@
+#!/bin/bash
+
+wget -q --tries=50 --timeout=20 --spider https://github.com > dev/null
+if [[ $? -eq 0 ]]; then
+	echo "Found connection to github."
+else
+	echo "Unable to connect to github."
+fi
+
+echo "Press 1 to clear Desktop directory and replace it with fresh repo clone."
+echo "Press any other key to continue without changing the Desktop directory."
+read -n 1 -p "Input Selection: " input
+if [[ "$input" = "1" ]]; then
+	git clone https://github.com/petrovicks/Kremens-datalogger
+	ls | grep -v Kremens | xargs sudo rm -rf
+	sudo cp -r Kremens-datalogger/* /home/pi/Desktop
+	ls | grep Kremens | xargs sudo rm -rf
+else
+	echo "Moving on..."
+	exit 1
+fi

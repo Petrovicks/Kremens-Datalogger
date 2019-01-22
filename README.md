@@ -3,12 +3,11 @@ Codebase used for datalogging kits used for wildland fire research. Codebase wil
 Hardware: Raspberry Pi 2 B, DS1307 RTC, IR Camera (unknown)
 
 Pi configuration notes:
-
-- CPU is overclocked to 800 MHz (unknown reason why)
 - Baudrate wasn't set in config.txt, currently set it to 9600
 	- RTC clock supports up to 100 kbits/s (where?)
+- main must be located in /home/pi/Desktop
+	- dependency in Lepton/ requires this, unsure of specific reason
+- update_from_git is used to clean out the Desktop and replace files with an updated clone from this repo
+- clock_debugging.py will print out all register values and RTC datetime object
+	- contains commented code used to create specific usecases
 - Calls to run code upon boot is located in ~/etc/profile 
-	- Pi manually sets a hardcoded date as a starting point since DS1307 only cares about time after the year 2000
-	- TODO: Add github intergration where upon detecting wifi on boot, will clean current working directory and clone repo into the cwd properly.
-		- Lepton requires recursive (parent and all subdirectories) rwx permissions to be set.
-- Currently assumes operation in the Pi's desktop (/home/pi/Desktop/)
