@@ -168,7 +168,9 @@ def main():
     startTime = 0
     count = 0
     count2 = 0
-    duplicateDirNum = 0
+    nameFileRetries = 20 # Number of times the code will deal with duplicate directory before raising an exception.
+    firstRetry = True
+    dupe = False
     while check_usb(): #Continue running as long as USB is inserted.
         #Very dirty, hopefully temporary as a measure to combat unexpected USB miscommunication.
         try:
@@ -189,11 +191,19 @@ def main():
                     rtc_time = rtc_time.timetuple()
                     dirName = "%04d-%02d-%02d--%02d-%02d-%02d"%(rtc_time[0],rtc_time[1],rtc_time[2],rtc_time[3],rtc_time[4],rtc_time[5])
                     fullDN = '/media/usb/'+dirName
-                    try:
-                        os.mkdir(fullDN)
-                    except:
-                        duplicateDirNum+=1;
-                        os.mkdir(fullDN + '_dupe_' +str(duplicateDirNum))
+                    for i in range(1,nameFileRetries+1):
+                        try:
+                            if not dupe:
+                                os.mkdir(fullDN)
+                            else:
+                                os.mkdir(fullDN+str(i))
+                            break
+                        except:
+                            if firstRetry:
+                                fullDN = fullDN + '_dupe'
+                                firstRetry = False
+                                dupe = True
+                            continue
                     startTime = (rtc_time[3]*60*60) +(rtc_time[4]*60) +(rtc_time[5])
 
                 #Enforce one second increments between pictures using Pi HW clock
