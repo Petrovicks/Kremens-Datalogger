@@ -163,11 +163,7 @@ class DS1307():
             if hours < 0 or hours > 23:
                 raise ValueError('Hours is out of range [0,23].')
             if save_as_24h:
-                if hours > 20:
-                    bcd_hours = (hours//10 << 4) | (hours % 10)
-                else:
-                    bcd_hours = (hours//10 << 3) | (hours % 10)
-                self._write(self._REG_HOURS, bcd_hours)
+                self._write(self._REG_HOURS, _int_to_bcd(hours))
             else:
                 if hours == 0:
                     h = _int_to_bcd(12) | 0x32
