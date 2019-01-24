@@ -1,4 +1,4 @@
-Codebase used for datalogging kits used for wildland fire research. Codebase will undergo heavy refactoring.
+Refactored codebase of the Raspberry Pi-based dataloggers used for wildland fire research.
 
 Hardware: Raspberry Pi 2 B, DS1307 RTC, IR Camera (unknown)
 
