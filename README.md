@@ -1,6 +1,6 @@
 Refactored codebase of the Raspberry Pi-based dataloggers used for wildland fire research.
 
-Hardware: Raspberry Pi 2 B, DS1307 RTC, IR Camera (unknown)
+Hardware: Raspberry Pi 2 B, DS1307 RTC, IR Camera (Lepton)
 
 Pi configuration notes:
 - Baudrate wasn't set in config.txt, currently set it to 9600
